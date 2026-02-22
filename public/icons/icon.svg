@@ -1,0 +1,16 @@
+<svg viewBox="0 0 128 128" xmlns="http://www.w3.org/2000/svg">
+  <!-- Indigo background -->
+  <rect width="128" height="128" fill="#4f46e5" rx="16"/>
+  
+  <!-- White funnel/filter shape -->
+  <g fill="#ffffff">
+    <!-- Top wide part of funnel -->
+    <polygon points="20,20 108,20 100,50 28,50"/>
+    
+    <!-- Middle narrow part -->
+    <polygon points="100,50 28,50 50,85 78,85"/>
+    
+    <!-- Bottom stem -->
+    <rect x="56" y="85" width="16" height="30" rx="2"/>
+  </g>
+</svg>
