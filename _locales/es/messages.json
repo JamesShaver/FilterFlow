@@ -32,11 +32,6 @@
     "message": "Sugerir una función",
     "description": "Enlace de ayuda para sugerir una función"
   },
-  "contactEmail": {
-    "message": "Contactar por correo electrónico",
-    "description": "Enlace de ayuda para contactar por correo electrónico"
-  },
-
   "newFilter": {
     "message": "Nuevo filtro",
     "description": "Botón para crear un nuevo filtro"

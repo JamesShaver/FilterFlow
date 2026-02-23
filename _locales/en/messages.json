@@ -32,11 +32,6 @@
     "message": "Suggest a Feature",
     "description": "Help link to suggest a feature"
   },
-  "contactEmail": {
-    "message": "Contact via Email",
-    "description": "Help link to contact via email"
-  },
-
   "newFilter": {
     "message": "New Filter",
     "description": "Create new filter button"
