@@ -3,6 +3,7 @@ import { useAppContext } from '../context/AppContext';
 import { sendMessage } from '../lib/message';
 import { saveFilterOrder, getFilterOrder, saveFolders, getFolders } from '../lib/storage';
 import type { GmailFilter, GmailFilterCriteria, GmailFilterAction } from '@shared/types/gmail';
+import { t } from '../lib/i18n';
 
 export function useFilters() {
   const { state, dispatch } = useAppContext();
@@ -52,7 +53,7 @@ export function useFilters() {
       }
     } catch (err) {
       dispatch({ type: 'SET_ERROR', payload: (err as Error).message });
-      dispatch({ type: 'SHOW_TOAST', payload: { message: 'Failed to load filters', type: 'error' } });
+      dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastLoadFiltersFailed'), type: 'error' } });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
@@ -67,10 +68,10 @@ export function useFilters() {
         action,
       });
       dispatch({ type: 'ADD_FILTER', payload: filter });
-      dispatch({ type: 'SHOW_TOAST', payload: { message: 'Filter created', type: 'success' } });
+      dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastFilterCreated'), type: 'success' } });
       return filter;
     } catch (err) {
-      dispatch({ type: 'SHOW_TOAST', payload: { message: 'Failed to create filter', type: 'error' } });
+      dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastCreateFilterFailed'), type: 'error' } });
       throw err;
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
@@ -87,9 +88,9 @@ export function useFilters() {
         filterIds: f.filterIds.filter((id) => id !== filterId),
       }));
       await saveFolders(cleanedFolders);
-      dispatch({ type: 'SHOW_TOAST', payload: { message: 'Filter deleted', type: 'success' } });
+      dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastFilterDeleted'), type: 'success' } });
     } catch (err) {
-      dispatch({ type: 'SHOW_TOAST', payload: { message: 'Failed to delete filter', type: 'error' } });
+      dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastDeleteFilterFailed'), type: 'error' } });
       throw err;
     }
   }, [dispatch, state.folders]);
@@ -115,9 +116,9 @@ export function useFilters() {
       dispatch({ type: 'SET_FILTERS', payload: filters });
       dispatch({ type: 'SET_FILTER_ORDER', payload: filters.map((f) => f.id) });
       await saveFilterOrder(filters.map((f) => f.id));
-      dispatch({ type: 'SHOW_TOAST', payload: { message: 'Filter order saved', type: 'success' } });
+      dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastOrderSaved'), type: 'success' } });
     } catch (err) {
-      dispatch({ type: 'SHOW_TOAST', payload: { message: 'Failed to save order', type: 'error' } });
+      dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastSaveOrderFailed'), type: 'error' } });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }

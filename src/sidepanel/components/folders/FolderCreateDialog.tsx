@@ -3,6 +3,7 @@ import { Dialog } from '../common/Dialog';
 import { Button } from '../common/Button';
 import { useFolders } from '../../hooks/useFolders';
 import type { VirtualFolder } from '@shared/types/storage';
+import { t } from '../../lib/i18n';
 
 interface FolderDialogProps {
   open: boolean;
@@ -61,14 +62,14 @@ export function FolderDialog({ open, onClose, folder }: FolderDialogProps) {
   };
 
   return (
-    <Dialog open={open} onClose={onClose} title={isEdit ? 'Edit Folder' : 'Create Folder'}>
+    <Dialog open={open} onClose={onClose} title={isEdit ? t('editFolderTitle') : t('createFolderTitle')}>
       <form onSubmit={handleSubmit} className="space-y-4">
         <div>
-          <label className="block text-xs font-medium text-slate-700 mb-1">Name</label>
+          <label className="block text-xs font-medium text-slate-700 mb-1">{t('folderName')}</label>
           <input
             type="text"
             className="w-full px-3 py-1.5 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-            placeholder="e.g., Newsletters"
+            placeholder={t('placeholderFolderName')}
             value={name}
             onChange={(e) => setName(e.target.value)}
             autoFocus
@@ -76,7 +77,7 @@ export function FolderDialog({ open, onClose, folder }: FolderDialogProps) {
         </div>
 
         <div>
-          <label className="block text-xs font-medium text-slate-700 mb-2">Color</label>
+          <label className="block text-xs font-medium text-slate-700 mb-2">{t('folderColor')}</label>
           <div className="flex gap-2">
             {FOLDER_COLORS.map((c) => (
               <button
@@ -103,17 +104,17 @@ export function FolderDialog({ open, onClose, folder }: FolderDialogProps) {
               }`}
               disabled={filterCount > 0}
               onClick={handleDelete}
-              title={filterCount > 0 ? 'Remove all filters from this folder first' : 'Delete folder'}
+              title={filterCount > 0 ? t('removeFolderFiltersFirst') : t('deleteFolderTitle')}
             >
-              Delete
+              {t('delete')}
             </button>
           )}
           <div className="flex-1" />
           <Button type="button" variant="secondary" onClick={onClose}>
-            Cancel
+            {t('cancel')}
           </Button>
           <Button type="submit" disabled={!name.trim()}>
-            {isEdit ? 'Save Changes' : 'Create'}
+            {isEdit ? t('saveChanges') : t('create')}
           </Button>
         </div>
       </form>

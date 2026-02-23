@@ -1,6 +1,7 @@
 import { useCallback, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { sendMessage } from '../lib/message';
+import { t } from '../lib/i18n';
 
 export function useAuth() {
   const { state, dispatch } = useAppContext();
@@ -17,12 +18,12 @@ export function useAuth() {
       dispatch({ type: 'SET_LOADING', payload: true });
       await sendMessage({ type: 'GET_AUTH_TOKEN', interactive: true });
       dispatch({ type: 'SET_AUTHENTICATED', payload: true });
-      dispatch({ type: 'SHOW_TOAST', payload: { message: 'Signed in successfully', type: 'success' } });
+      dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastSignInSuccess'), type: 'success' } });
     } catch (err) {
       const errorMsg = (err as Error).message || 'Unknown error';
       console.error('Sign in failed:', errorMsg);
       dispatch({ type: 'SET_ERROR', payload: errorMsg });
-      dispatch({ type: 'SHOW_TOAST', payload: { message: `Sign in failed: ${errorMsg}`, type: 'error' } });
+      dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastSignInFailed', [errorMsg]), type: 'error' } });
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
@@ -33,7 +34,7 @@ export function useAuth() {
       await sendMessage({ type: 'SIGN_OUT' });
       dispatch({ type: 'SET_AUTHENTICATED', payload: false });
       dispatch({ type: 'SET_FILTERS', payload: [] });
-      dispatch({ type: 'SHOW_TOAST', payload: { message: 'Signed out', type: 'info' } });
+      dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastSignedOut'), type: 'info' } });
     } catch (err) {
       dispatch({ type: 'SET_ERROR', payload: (err as Error).message });
     }

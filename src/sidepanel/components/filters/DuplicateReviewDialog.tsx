@@ -5,6 +5,7 @@ import { Badge } from '../common/Badge';
 import { getFilterSummary, getActionSummary } from '../../lib/filter-utils';
 import type { DuplicateGroup } from '../../lib/filter-analysis';
 import type { GmailLabel } from '@shared/types/gmail';
+import { t } from '../../lib/i18n';
 
 interface DuplicateReviewDialogProps {
   open: boolean;
@@ -54,11 +55,10 @@ export function DuplicateReviewDialog({
   };
 
   return (
-    <Dialog open={open} onClose={onClose} title="Review Duplicates" size="lg">
+    <Dialog open={open} onClose={onClose} title={t('reviewDuplicates')} size="lg">
       <div className="space-y-4">
         <p className="text-xs text-slate-500">
-          {group.filters.length} filters share the same {group.reason.toLowerCase()} ({group.key}).
-          Select which ones to delete.
+          {t('duplicateDescription', [String(group.filters.length), group.reason.toLowerCase(), group.key])}
         </p>
 
         <div className="space-y-2">
@@ -97,7 +97,7 @@ export function DuplicateReviewDialog({
                     disabled={isLastKept && !isDeleting}
                     onClick={() => toggleFilter(filter.id)}
                   >
-                    {isDeleting ? 'Keep' : 'Delete'}
+                    {isDeleting ? t('keep') : t('delete')}
                   </button>
                 </div>
               </div>
@@ -107,7 +107,7 @@ export function DuplicateReviewDialog({
 
         <div className="flex justify-end gap-2 pt-2">
           <Button variant="secondary" size="sm" onClick={onClose}>
-            Cancel
+            {t('cancel')}
           </Button>
           <Button
             variant="danger"
@@ -116,7 +116,7 @@ export function DuplicateReviewDialog({
             disabled={markedForDeletion.size === 0}
             onClick={handleConfirm}
           >
-            Delete {markedForDeletion.size} filter{markedForDeletion.size !== 1 ? 's' : ''}
+            {t('deleteNFilters', [String(markedForDeletion.size), markedForDeletion.size !== 1 ? 's' : ''])}
           </Button>
         </div>
       </div>

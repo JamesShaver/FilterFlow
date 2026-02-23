@@ -12,7 +12,7 @@ export async function getAuthToken(interactive = true): Promise<string> {
       const token = typeof result === 'string' ? result : result?.token;
       if (!token) {
         console.error('[FilterFlow Auth] No token in result');
-        reject(new Error('No auth token received'));
+        reject(new Error(chrome.i18n.getMessage('errorNoAuthToken')));
         return;
       }
       console.log('[FilterFlow Auth] Token obtained successfully');

@@ -2,7 +2,21 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
 import { resolve } from 'path';
-import { readFileSync, writeFileSync, copyFileSync, mkdirSync, readdirSync } from 'fs';
+import { readFileSync, writeFileSync, copyFileSync, mkdirSync, readdirSync, statSync } from 'fs';
+
+// Recursively copy a directory
+function copyDirRecursive(src: string, dest: string) {
+  mkdirSync(dest, { recursive: true });
+  for (const entry of readdirSync(src)) {
+    const srcPath = resolve(src, entry);
+    const destPath = resolve(dest, entry);
+    if (statSync(srcPath).isDirectory()) {
+      copyDirRecursive(srcPath, destPath);
+    } else {
+      copyFileSync(srcPath, destPath);
+    }
+  }
+}
 
 // Plugin to copy and patch manifest + icons into dist
 function copyExtensionFiles() {
@@ -31,6 +45,14 @@ function copyExtensionFiles() {
         }
       } catch {
         // Icons dir may not exist yet
+      }
+
+      // Copy _locales directory for i18n
+      const localesDir = resolve(__dirname, '_locales');
+      try {
+        copyDirRecursive(localesDir, resolve(__dirname, 'dist/_locales'));
+      } catch {
+        // _locales dir may not exist yet
       }
     },
   };

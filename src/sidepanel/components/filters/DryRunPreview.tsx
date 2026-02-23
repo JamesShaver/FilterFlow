@@ -3,6 +3,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import type { GmailFilterCriteria } from '@shared/types/gmail';
 import { useDryRun } from '../../hooks/useDryRun';
 import { Spinner } from '../common/Spinner';
+import { t } from '../../lib/i18n';
 
 interface DryRunPreviewProps {
   criteria: GmailFilterCriteria;
@@ -25,7 +26,7 @@ export function DryRunPreview({ criteria }: DryRunPreviewProps) {
           <path strokeLinecap="round" strokeLinejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
           <path strokeLinecap="round" strokeLinejoin="round" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
         </svg>
-        <span className="text-xs font-medium text-slate-600">Dry Run Preview</span>
+        <span className="text-xs font-medium text-slate-600">{t('dryRunPreview')}</span>
         {isLoading && <Spinner size="sm" />}
       </div>
 
@@ -46,7 +47,7 @@ export function DryRunPreview({ criteria }: DryRunPreviewProps) {
             animate={{ opacity: 1 }}
             className="space-y-1.5"
           >
-            <p className="text-xs text-slate-500">{messages.length} matching email{messages.length !== 1 ? 's' : ''}:</p>
+            <p className="text-xs text-slate-500">{t('matchingEmails', [String(messages.length), messages.length !== 1 ? 's' : ''])}</p>
             {messages.map((msg) => (
               <div key={msg.id} className="bg-white rounded-md px-2.5 py-2 border border-slate-100">
                 <p className="text-xs font-medium text-slate-800 truncate">
@@ -68,7 +69,7 @@ export function DryRunPreview({ criteria }: DryRunPreviewProps) {
             animate={{ opacity: 1 }}
             className="text-xs text-slate-400"
           >
-            No matching emails found
+            {t('noMatchingEmails')}
           </motion.p>
         ) : (
           <div key="loading" className="space-y-1.5">

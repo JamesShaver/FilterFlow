@@ -2,6 +2,7 @@ import React from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { useEmailContext } from '../../hooks/useEmailContext';
 import { Button } from '../common/Button';
+import { t } from '../../lib/i18n';
 
 interface ContextualCreatorProps {
   onCreateFilter: (criteria: { from?: string; subject?: string }) => void;
@@ -28,7 +29,7 @@ export function ContextualCreator({ onCreateFilter }: ContextualCreatorProps) {
                 </svg>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-medium text-indigo-900 mb-0.5">Quick Filter</p>
+                <p className="text-xs font-medium text-indigo-900 mb-0.5">{t('quickFilter')}</p>
                 <p className="text-xs text-indigo-700 truncate">
                   {emailContext.sender}
                 </p>
@@ -42,14 +43,14 @@ export function ContextualCreator({ onCreateFilter }: ContextualCreatorProps) {
                     size="sm"
                     onClick={() => onCreateFilter({ from: emailContext.sender })}
                   >
-                    Filter sender
+                    {t('filterSender')}
                   </Button>
                   <Button
                     variant="ghost"
                     size="sm"
                     onClick={clearContext}
                   >
-                    Dismiss
+                    {t('dismiss')}
                   </Button>
                 </div>
               </div>

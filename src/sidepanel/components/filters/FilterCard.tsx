@@ -7,6 +7,7 @@ import type { TemporalFilterMeta } from '@shared/types/storage';
 import { getFilterSummary, getActionSummary } from '../../lib/filter-utils';
 import { Badge } from '../common/Badge';
 import { FilterActions } from './FilterActions';
+import { t } from '../../lib/i18n';
 
 interface FilterCardProps {
   filter: GmailFilter;
@@ -93,9 +94,9 @@ export function FilterCard({ filter, labels, temporalMeta, onDelete, onEdit }: F
 function getExpiryText(expiresAt: number): string {
   const now = Date.now();
   const diff = expiresAt - now;
-  if (diff <= 0) return 'Expired';
+  if (diff <= 0) return t('expired');
   const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
-  if (days === 1) return 'Expires tomorrow';
-  if (days <= 7) return `Expires in ${days} days`;
-  return `Expires ${new Date(expiresAt).toLocaleDateString()}`;
+  if (days === 1) return t('expiresTomorrow');
+  if (days <= 7) return t('expiresInDays', [String(days)]);
+  return t('expiresOnDate', [new Date(expiresAt).toLocaleDateString()]);
 }

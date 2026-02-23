@@ -5,6 +5,7 @@ import { useFilters } from '../../hooks/useFilters';
 import { useAppContext } from '../../context/AppContext';
 import { Button } from '../common/Button';
 import { DryRunPreview } from './DryRunPreview';
+import { t } from '../../lib/i18n';
 
 interface FilterFormProps {
   initialCriteria?: GmailFilterCriteria;
@@ -57,7 +58,7 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
     >
       <div className="px-4 py-3 border-b border-slate-100">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-slate-900">Create Filter</h2>
+          <h2 className="text-sm font-semibold text-slate-900">{t('createFilter')}</h2>
           <button
             className="text-slate-400 hover:text-slate-600"
             onClick={onClose}
@@ -72,47 +73,47 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
       <form onSubmit={handleSubmit} className="p-4 space-y-4">
         {/* Criteria */}
         <fieldset className="space-y-3">
-          <legend className="text-xs font-medium text-slate-500 uppercase tracking-wider">Criteria</legend>
+          <legend className="text-xs font-medium text-slate-500 uppercase tracking-wider">{t('criteriaLegend')}</legend>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1">From</label>
+            <label className="block text-xs font-medium text-slate-700 mb-1">{t('formFrom')}</label>
             <input
               type="text"
               className="w-full px-3 py-1.5 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              placeholder="sender@example.com"
+              placeholder={t('placeholderSender')}
               value={criteria.from || ''}
               onChange={(e) => setCriteria({ ...criteria, from: e.target.value || undefined })}
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1">To</label>
+            <label className="block text-xs font-medium text-slate-700 mb-1">{t('formTo')}</label>
             <input
               type="text"
               className="w-full px-3 py-1.5 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              placeholder="recipient@example.com"
+              placeholder={t('placeholderRecipient')}
               value={criteria.to || ''}
               onChange={(e) => setCriteria({ ...criteria, to: e.target.value || undefined })}
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1">Subject</label>
+            <label className="block text-xs font-medium text-slate-700 mb-1">{t('formSubject')}</label>
             <input
               type="text"
               className="w-full px-3 py-1.5 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              placeholder="Contains words..."
+              placeholder={t('placeholderSubject')}
               value={criteria.subject || ''}
               onChange={(e) => setCriteria({ ...criteria, subject: e.target.value || undefined })}
             />
           </div>
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1">Has the words</label>
+            <label className="block text-xs font-medium text-slate-700 mb-1">{t('formHasWords')}</label>
             <input
               type="text"
               className="w-full px-3 py-1.5 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              placeholder="Search query..."
+              placeholder={t('placeholderQuery')}
               value={criteria.query || ''}
               onChange={(e) => setCriteria({ ...criteria, query: e.target.value || undefined })}
             />
@@ -125,7 +126,7 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
               checked={criteria.hasAttachment || false}
               onChange={(e) => setCriteria({ ...criteria, hasAttachment: e.target.checked || undefined })}
             />
-            Has attachment
+            {t('hasAttachment')}
           </label>
         </fieldset>
 
@@ -134,7 +135,7 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
 
         {/* Actions */}
         <fieldset className="space-y-3">
-          <legend className="text-xs font-medium text-slate-500 uppercase tracking-wider">Actions</legend>
+          <legend className="text-xs font-medium text-slate-500 uppercase tracking-wider">{t('actionsLegend')}</legend>
 
           <label className="flex items-center gap-2 text-sm text-slate-700">
             <input
@@ -143,7 +144,7 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
               checked={action.archive || false}
               onChange={(e) => setAction({ ...action, archive: e.target.checked || undefined })}
             />
-            Skip the Inbox (Archive)
+            {t('actionArchive')}
           </label>
 
           <label className="flex items-center gap-2 text-sm text-slate-700">
@@ -153,7 +154,7 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
               checked={action.markRead || false}
               onChange={(e) => setAction({ ...action, markRead: e.target.checked || undefined })}
             />
-            Mark as read
+            {t('actionMarkRead')}
           </label>
 
           <label className="flex items-center gap-2 text-sm text-slate-700">
@@ -163,7 +164,7 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
               checked={action.star || false}
               onChange={(e) => setAction({ ...action, star: e.target.checked || undefined })}
             />
-            Star it
+            {t('actionStar')}
           </label>
 
           <label className="flex items-center gap-2 text-sm text-slate-700">
@@ -173,7 +174,7 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
               checked={action.trash || false}
               onChange={(e) => setAction({ ...action, trash: e.target.checked || undefined })}
             />
-            Delete it
+            {t('actionDelete')}
           </label>
 
           <label className="flex items-center gap-2 text-sm text-slate-700">
@@ -183,7 +184,7 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
               checked={action.markImportant || false}
               onChange={(e) => setAction({ ...action, markImportant: e.target.checked || undefined })}
             />
-            Mark as important
+            {t('actionMarkImportant')}
           </label>
 
           <label className="flex items-center gap-2 text-sm text-slate-700">
@@ -193,12 +194,12 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
               checked={action.neverSpam || false}
               onChange={(e) => setAction({ ...action, neverSpam: e.target.checked || undefined })}
             />
-            Never send to Spam
+            {t('actionNeverSpam')}
           </label>
 
           {userLabels.length > 0 && (
             <div>
-              <label className="block text-xs font-medium text-slate-700 mb-1">Apply label</label>
+              <label className="block text-xs font-medium text-slate-700 mb-1">{t('applyLabel')}</label>
               <select
                 className="w-full px-3 py-1.5 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
                 value={action.addLabelIds?.[0] || ''}
@@ -209,7 +210,7 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
                   });
                 }}
               >
-                <option value="">None</option>
+                <option value="">{t('labelNone')}</option>
                 {userLabels.map((label) => (
                   <option key={label.id} value={label.id}>{label.name}</option>
                 ))}
@@ -218,11 +219,11 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
           )}
 
           <div>
-            <label className="block text-xs font-medium text-slate-700 mb-1">Forward to</label>
+            <label className="block text-xs font-medium text-slate-700 mb-1">{t('forwardTo')}</label>
             <input
               type="email"
               className="w-full px-3 py-1.5 text-sm border border-slate-200 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500 focus:border-transparent"
-              placeholder="forward@example.com"
+              placeholder={t('placeholderForward')}
               value={action.forward || ''}
               onChange={(e) => setAction({ ...action, forward: e.target.value || undefined })}
             />
@@ -231,7 +232,7 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
 
         {/* Auto-expiry */}
         <fieldset className="space-y-3">
-          <legend className="text-xs font-medium text-slate-500 uppercase tracking-wider">Expiration</legend>
+          <legend className="text-xs font-medium text-slate-500 uppercase tracking-wider">{t('expirationLegend')}</legend>
 
           <label className="flex items-center gap-2 text-sm text-slate-700">
             <input
@@ -240,7 +241,7 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
               checked={enableExpiry}
               onChange={(e) => setEnableExpiry(e.target.checked)}
             />
-            Auto-expire this filter
+            {t('autoExpire')}
           </label>
 
           {enableExpiry && (
@@ -250,14 +251,14 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
                 value={expiryDays}
                 onChange={(e) => setExpiryDays(Number(e.target.value))}
               >
-                <option value={1}>1 day</option>
-                <option value={3}>3 days</option>
-                <option value={7}>1 week</option>
-                <option value={14}>2 weeks</option>
-                <option value={30}>1 month</option>
-                <option value={90}>3 months</option>
+                <option value={1}>{t('expiry1Day')}</option>
+                <option value={3}>{t('expiry3Days')}</option>
+                <option value={7}>{t('expiry1Week')}</option>
+                <option value={14}>{t('expiry2Weeks')}</option>
+                <option value={30}>{t('expiry1Month')}</option>
+                <option value={90}>{t('expiry3Months')}</option>
               </select>
-              <span className="text-xs text-slate-500">from now</span>
+              <span className="text-xs text-slate-500">{t('fromNow')}</span>
             </div>
           )}
         </fieldset>
@@ -265,10 +266,10 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
         {/* Submit */}
         <div className="flex items-center gap-2 pt-2">
           <Button type="submit" loading={isLoading} className="flex-1">
-            Create Filter
+            {t('createFilter')}
           </Button>
           <Button type="button" variant="secondary" onClick={onClose}>
-            Cancel
+            {t('cancel')}
           </Button>
         </div>
       </form>

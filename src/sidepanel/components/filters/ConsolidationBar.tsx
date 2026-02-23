@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import type { ConsolidationGroup, DuplicateGroup } from '../../lib/filter-analysis';
+import { t } from '../../lib/i18n';
 
 interface ConsolidationBarProps {
   consolidationGroups: ConsolidationGroup[];
@@ -29,7 +30,7 @@ export function ConsolidationBar({
             <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
           </svg>
           <span className="text-xs font-semibold text-indigo-800">
-            {total} suggestion{total !== 1 ? 's' : ''} to clean up filters
+            {t('suggestionsCount', [String(total), total !== 1 ? 's' : ''])}
           </span>
         </div>
         <svg
@@ -59,13 +60,13 @@ export function ConsolidationBar({
                   className="flex items-center justify-between bg-white rounded-md px-2.5 py-1.5 border border-indigo-100"
                 >
                   <span className="text-xs text-slate-700 truncate mr-2">
-                    {group.filters.length} filters all label &ldquo;{group.labelName}&rdquo;
+                    {t('filtersAllLabel', [String(group.filters.length), group.labelName])}
                   </span>
                   <button
                     className="shrink-0 text-xs font-medium text-indigo-600 hover:text-indigo-800"
                     onClick={() => onConsolidate(group)}
                   >
-                    Consolidate
+                    {t('consolidate')}
                   </button>
                 </div>
               ))}
@@ -76,13 +77,13 @@ export function ConsolidationBar({
                   className="flex items-center justify-between bg-white rounded-md px-2.5 py-1.5 border border-indigo-100"
                 >
                   <span className="text-xs text-slate-700 truncate mr-2">
-                    {group.filters.length} filters match {group.key}
+                    {t('filtersMatchKey', [String(group.filters.length), group.key])}
                   </span>
                   <button
                     className="shrink-0 text-xs font-medium text-indigo-600 hover:text-indigo-800"
                     onClick={() => onReviewDuplicates(group)}
                   >
-                    Review
+                    {t('review')}
                   </button>
                 </div>
               ))}

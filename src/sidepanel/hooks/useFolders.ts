@@ -2,6 +2,7 @@ import { useCallback, useEffect } from 'react';
 import { useAppContext } from '../context/AppContext';
 import { getFolders, saveFolders } from '../lib/storage';
 import type { VirtualFolder } from '@shared/types/storage';
+import { t } from '../lib/i18n';
 
 export function useFolders() {
   const { state, dispatch } = useAppContext();
@@ -23,7 +24,7 @@ export function useFolders() {
     const updated = [...state.folders, newFolder];
     dispatch({ type: 'SET_FOLDERS', payload: updated });
     await saveFolders(updated);
-    dispatch({ type: 'SHOW_TOAST', payload: { message: `Folder "${name}" created`, type: 'success' } });
+    dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastFolderCreated', [name]), type: 'success' } });
     return newFolder;
   }, [state.folders, dispatch]);
 
@@ -39,7 +40,7 @@ export function useFolders() {
     const updated = state.folders.filter((f) => f.id !== id);
     dispatch({ type: 'SET_FOLDERS', payload: updated });
     await saveFolders(updated);
-    dispatch({ type: 'SHOW_TOAST', payload: { message: 'Folder deleted', type: 'info' } });
+    dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastFolderDeleted'), type: 'info' } });
   }, [state.folders, dispatch]);
 
   const addFilterToFolder = useCallback(async (folderId: string, filterId: string) => {

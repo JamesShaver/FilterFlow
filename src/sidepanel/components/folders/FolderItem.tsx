@@ -6,6 +6,7 @@ import type { GmailFilter, GmailLabel } from '@shared/types/gmail';
 import { useFolders } from '../../hooks/useFolders';
 import { FilterCard } from '../filters/FilterCard';
 import { Badge } from '../common/Badge';
+import { t } from '../../lib/i18n';
 
 interface FolderItemProps {
   folder: VirtualFolder;
@@ -59,7 +60,7 @@ export function FolderItem({ folder, filters, labels, temporalFilters, onDeleteF
             e.stopPropagation();
             onEditFolder(folder);
           }}
-          title="Edit folder"
+          title={t('editFolderButton')}
         >
           <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
@@ -96,7 +97,7 @@ export function FolderItem({ folder, filters, labels, temporalFilters, onDeleteF
       {!folder.collapsed && folderFilters.length === 0 && (
         <div className="px-3 pb-3">
           <p className="text-xs text-slate-400 text-center py-2">
-            Drag filters here
+            {t('dragFiltersHere')}
           </p>
         </div>
       )}

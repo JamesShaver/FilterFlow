@@ -20,7 +20,7 @@ export function handleMessage(
     sendResponse(response);
   }).catch((err) => {
     console.error('[FilterFlow] Error handling', message.type, ':', err);
-    sendResponse({ success: false, error: err.message || 'Unknown error' });
+    sendResponse({ success: false, error: err.message || chrome.i18n.getMessage('errorUnknown') });
   });
   return true; // Keep the message channel open for async response
 }
@@ -82,25 +82,25 @@ async function handleAsync(message: BackgroundMessage): Promise<MessageResponse>
         }).catch(() => {});
       };
 
-      broadcastProgress('Deleting filters...');
+      broadcastProgress(chrome.i18n.getMessage('progressDeleting'));
 
       const deleteIds = filtersToReorder.map((f) => f.id);
       for (let i = 0; i < deleteIds.length; i += BATCH_SIZE) {
         const batch = deleteIds.slice(i, i + BATCH_SIZE);
         await Promise.all(batch.map((id) => deleteFilter(id).then(() => {
           completedSteps++;
-          broadcastProgress('Deleting filters...');
+          broadcastProgress(chrome.i18n.getMessage('progressDeleting'));
         })));
       }
 
       // Recreate in the desired order, also batched
-      broadcastProgress('Recreating filters...');
+      broadcastProgress(chrome.i18n.getMessage('progressRecreating'));
       for (let i = 0; i < filtersToReorder.length; i += BATCH_SIZE) {
         const batch = filtersToReorder.slice(i, i + BATCH_SIZE);
         await Promise.all(
           batch.map((f) => createFilter(f.criteria, f.action).then(() => {
             completedSteps++;
-            broadcastProgress('Recreating filters...');
+            broadcastProgress(chrome.i18n.getMessage('progressRecreating'));
           }))
         );
       }
@@ -131,6 +131,6 @@ async function handleAsync(message: BackgroundMessage): Promise<MessageResponse>
     }
 
     default:
-      return { success: false, error: `Unknown message type` };
+      return { success: false, error: chrome.i18n.getMessage('errorUnknownMessageType') };
   }
 }

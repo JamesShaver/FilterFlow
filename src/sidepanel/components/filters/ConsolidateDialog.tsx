@@ -6,6 +6,7 @@ import { getFilterSummary, getCriteriaSummary, getActionSummary } from '../../li
 import { analyzeConsolidationGroup } from '../../lib/filter-analysis';
 import type { ConsolidationGroup, MergeSubGroup } from '../../lib/filter-analysis';
 import type { GmailLabel } from '@shared/types/gmail';
+import { t } from '../../lib/i18n';
 
 export interface ConsolidateResult {
   subGroups: MergeSubGroup[];
@@ -89,14 +90,20 @@ export function ConsolidateDialog({
   const description = (() => {
     if (hasSubGroups && !hasRemaining) {
       if (analysis.subGroups.length === 1) {
-        return `All ${group.filters.length} filters can be merged into one.`;
+        return t('consolidateAllMerge', [String(group.filters.length)]);
       }
-      return `These filters can be merged into ${analysis.subGroups.length} groups based on their criteria patterns.`;
+      return t('consolidateMergeGroups', [String(analysis.subGroups.length)]);
     }
     if (hasSubGroups && hasRemaining) {
-      return `${totalMergeable} filters can be merged into ${analysis.subGroups.length} ${analysis.subGroups.length === 1 ? 'group' : 'groups'}. ${analysis.remaining.length} ${analysis.remaining.length === 1 ? 'filter has' : 'filters have'} a different pattern and can't be auto-merged.`;
+      return t('consolidateMixed', [
+        String(totalMergeable),
+        String(analysis.subGroups.length),
+        analysis.subGroups.length === 1 ? 'group' : 'groups',
+        String(analysis.remaining.length),
+        analysis.remaining.length === 1 ? 'filter has' : 'filters have',
+      ]);
     }
-    return "These filters use different criteria patterns and can't be auto-merged, but you can delete the ones you don't need.";
+    return t('consolidateNoMerge');
   })();
 
   // Button label
@@ -106,19 +113,19 @@ export function ConsolidateDialog({
       const filterCount = analysis.subGroups
         .filter((_, i) => selectedSubGroups.has(i))
         .reduce((sum, sg) => sum + sg.filters.length, 0);
-      parts.push(`Merge ${filterCount} filters`);
+      parts.push(t('mergeFilters', [String(filterCount)]));
     }
     if (markedForDeletion.size > 0) {
-      parts.push(`Delete ${markedForDeletion.size}`);
+      parts.push(`${t('delete')} ${markedForDeletion.size}`);
     }
-    return parts.join(' & ') || 'Consolidate';
+    return parts.join(' & ') || t('consolidate');
   })();
 
   return (
-    <Dialog open={open} onClose={onClose} title="Consolidate Filters" size="lg">
+    <Dialog open={open} onClose={onClose} title={t('consolidateFilters')} size="lg">
       <div className="space-y-4">
         <p className="text-xs text-slate-500">
-          These {group.filters.length} filters all apply the label &ldquo;{group.labelName}&rdquo;.
+          {t('consolidatePrefix', [String(group.filters.length), group.labelName])}
           {' '}{description}
         </p>
 
@@ -135,8 +142,8 @@ export function ConsolidateDialog({
                 />
                 <h3 className="text-xs font-medium text-slate-500 uppercase tracking-wider">
                   {analysis.subGroups.length === 1
-                    ? `Merge ${subGroup.filters.length} filters`
-                    : `Group ${index + 1}: ${subGroup.filters.length} filters`}
+                    ? t('mergeFilters', [String(subGroup.filters.length)])
+                    : t('groupLabel', [String(index + 1), String(subGroup.filters.length)])}
                 </h3>
               </label>
             </div>
@@ -164,13 +171,13 @@ export function ConsolidateDialog({
             {selectedSubGroups.has(index) && (
               <div className="bg-green-50 rounded-md px-2.5 py-2 border border-green-200">
                 <p className="text-[10px] font-medium text-green-600 uppercase tracking-wider mb-0.5">
-                  Merged Result
+                  {t('mergedResult')}
                 </p>
                 <p className="text-xs font-medium text-green-800">
                   {getCriteriaSummary(subGroup.mergeResult.criteria)}
                 </p>
                 <div className="flex flex-wrap gap-1 mt-1">
-                  <Badge variant="green">Label: {group.labelName}</Badge>
+                  <Badge variant="green">{t('labelPrefix', [group.labelName])}</Badge>
                 </div>
               </div>
             )}
@@ -181,7 +188,7 @@ export function ConsolidateDialog({
         {hasRemaining && (
           <div>
             <h3 className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-1.5">
-              {hasSubGroups ? 'Remaining Filters' : 'Current Filters'}
+              {hasSubGroups ? t('remainingFilters') : t('currentFilters')}
             </h3>
             <div className="space-y-1.5">
               {analysis.remaining.map((filter) => {
@@ -214,7 +221,7 @@ export function ConsolidateDialog({
                         }`}
                         onClick={() => toggleRemainingFilter(filter.id)}
                       >
-                        {isDeleting ? 'Keep' : 'Delete'}
+                        {isDeleting ? t('keep') : t('delete')}
                       </button>
                     </div>
                   </div>
@@ -227,7 +234,7 @@ export function ConsolidateDialog({
         {/* Actions */}
         <div className="flex justify-end gap-2 pt-2">
           <Button variant="secondary" size="sm" onClick={onClose}>
-            Cancel
+            {t('cancel')}
           </Button>
           <Button
             size="sm"

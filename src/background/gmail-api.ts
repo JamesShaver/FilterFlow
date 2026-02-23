@@ -75,7 +75,7 @@ async function gmailFetch<T>(path: string, options: RequestInit = {}): Promise<T
 
   if (!response.ok) {
     const error = await response.json().catch(() => ({ error: { message: response.statusText } }));
-    throw new Error(error.error?.message || `Gmail API error: ${response.status}`);
+    throw new Error(error.error?.message || chrome.i18n.getMessage('errorGmailApi', [String(response.status)]));
   }
 
   if (response.status === 204) return undefined as T;

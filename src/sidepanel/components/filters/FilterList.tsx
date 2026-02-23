@@ -10,6 +10,7 @@ import { FilterCard } from './FilterCard';
 import { Button } from '../common/Button';
 import { Spinner } from '../common/Spinner';
 import { EmptyState } from '../common/EmptyState';
+import { t } from '../../lib/i18n';
 import type { GmailFilter } from '@shared/types/gmail';
 
 interface ReorderProgress {
@@ -57,7 +58,7 @@ export function FilterList({ onCreateFilter, onEditFilter, folderFilterIds }: Fi
     : filters;
 
   const handleSaveOrder = async () => {
-    setReorderProgress({ completed: 0, total: 1, phase: 'Starting...' });
+    setReorderProgress({ completed: 0, total: 1, phase: t('starting') });
     await saveOrderToGmail();
     setReorderProgress(null);
     setHasOrderChanged(false);
@@ -79,11 +80,11 @@ export function FilterList({ onCreateFilter, onEditFilter, folderFilterIds }: Fi
             <path strokeLinecap="round" strokeLinejoin="round" d="M3 4a1 1 0 011-1h16a1 1 0 011 1v2.586a1 1 0 01-.293.707l-6.414 6.414a1 1 0 00-.293.707V17l-4 4v-6.586a1 1 0 00-.293-.707L3.293 7.293A1 1 0 013 6.586V4z" />
           </svg>
         }
-        title="No filters yet"
-        description="Create your first Gmail filter to get started organizing your inbox."
+        title={t('noFiltersTitle')}
+        description={t('noFiltersDescription')}
         action={
           <Button size="sm" onClick={onCreateFilter}>
-            Create filter
+            {t('createFilterAction')}
           </Button>
         }
       />
@@ -96,10 +97,10 @@ export function FilterList({ onCreateFilter, onEditFilter, folderFilterIds }: Fi
         <div className="bg-indigo-50 rounded-lg px-3 py-2 space-y-2">
           <div className="flex items-center justify-between">
             <span className="text-xs text-indigo-700 font-medium">
-              {reorderProgress ? reorderProgress.phase : 'Order changed'}
+              {reorderProgress ? reorderProgress.phase : t('orderChanged')}
             </span>
             <Button size="sm" loading={isLoading} onClick={handleSaveOrder} disabled={!!reorderProgress}>
-              Save Order
+              {t('saveOrder')}
             </Button>
           </div>
           {reorderProgress && reorderProgress.total > 0 && (
@@ -113,7 +114,7 @@ export function FilterList({ onCreateFilter, onEditFilter, folderFilterIds }: Fi
                 />
               </div>
               <p className="text-[10px] text-indigo-500 text-right">
-                {reorderProgress.completed} / {reorderProgress.total} steps
+                {t('stepsProgress', [String(reorderProgress.completed), String(reorderProgress.total)])}
               </p>
             </div>
           )}
