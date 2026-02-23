@@ -62,7 +62,7 @@ export function Header() {
           </li>
           <li>
             <a
-              href="mailto:	filterflow_support@mg.cdndev.io?subject=FilterFlow%20Support%20Request"
+              href="mailto:filterflow_support@mg.cdndev.io?subject=FilterFlow%20Support%20Request"
               className="flex items-center gap-2 text-sm text-slate-700 hover:text-indigo-600 transition-colors"
             >
               <span>📫</span> Contact via Email
