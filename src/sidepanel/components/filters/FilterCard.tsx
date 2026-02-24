@@ -44,13 +44,13 @@ export function FilterCard({ filter, labels, temporalMeta, onDelete, onEdit }: F
       initial={{ opacity: 0, y: 10 }}
       animate={{ opacity: isDragging ? 0.5 : 1, y: 0 }}
       exit={{ opacity: 0, y: -10 }}
-      className={`bg-white rounded-lg border border-slate-200 shadow-sm p-3 group
-        ${isDragging ? 'shadow-lg ring-2 ring-indigo-200' : 'hover:border-slate-300'}`}
+      className={`bg-white dark:bg-slate-800 rounded-lg border border-slate-200 dark:border-slate-700 shadow-sm p-3 group
+        ${isDragging ? 'shadow-lg ring-2 ring-indigo-200 dark:ring-indigo-800' : 'hover:border-slate-300 dark:hover:border-slate-600'}`}
     >
       <div className="flex items-start gap-2">
         {/* Drag handle */}
         <button
-          className="mt-0.5 text-slate-300 hover:text-slate-500 cursor-grab active:cursor-grabbing shrink-0"
+          className="mt-0.5 text-slate-300 dark:text-slate-600 hover:text-slate-500 dark:hover:text-slate-400 cursor-grab active:cursor-grabbing shrink-0"
           {...attributes}
           {...listeners}
         >
@@ -66,7 +66,7 @@ export function FilterCard({ filter, labels, temporalMeta, onDelete, onEdit }: F
 
         <div className="flex-1 min-w-0">
           {/* Criteria summary */}
-          <p className="text-sm font-medium text-slate-900 truncate">
+          <p className="text-sm font-medium text-slate-900 dark:text-slate-100 break-words">
             {getFilterSummary(filter)}
           </p>
 

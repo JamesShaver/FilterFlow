@@ -607,6 +607,30 @@
     "message": "Failed to delete filter",
     "description": "Delete filter failed toast"
   },
+  "toastConsolidated": {
+    "message": "Consolidated $COUNT$ filters into $GROUPS$",
+    "description": "Consolidation success toast",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "4"
+      },
+      "groups": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "toastDeletedCount": {
+    "message": "Deleted $COUNT$ filter(s)",
+    "description": "Batch deletion count toast",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "toastOrderSaved": {
     "message": "Filter order saved",
     "description": "Order saved toast"
@@ -650,6 +674,10 @@
     "message": "Unknown message type",
     "description": "Unknown message type error"
   },
+  "errorNoActions": {
+    "message": "Please select at least one action for the filter",
+    "description": "Error when creating a filter without any actions"
+  },
   "errorGmailApi": {
     "message": "Gmail API error: $STATUS$",
     "description": "Gmail API error with status code",
@@ -659,5 +687,36 @@
         "example": "403"
       }
     }
+  },
+
+  "validationActionRequired": {
+    "message": "Please select at least one action",
+    "description": "Validation error when no filter action is selected"
+  },
+  "createNewLabel": {
+    "message": "Create new label...",
+    "description": "Option to create a new label in the label dropdown"
+  },
+  "newLabelName": {
+    "message": "Label name",
+    "description": "Placeholder for new label name input"
+  },
+  "toastLabelCreated": {
+    "message": "Label \"$NAME$\" created",
+    "description": "Toast when label is created",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Newsletters"
+      }
+    }
+  },
+  "toastCreateLabelFailed": {
+    "message": "Failed to create label",
+    "description": "Toast when label creation fails"
+  },
+  "folderIcon": {
+    "message": "Icon",
+    "description": "Folder icon picker label"
   }
 }

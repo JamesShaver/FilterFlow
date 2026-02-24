@@ -59,7 +59,7 @@ export function useFilters() {
     }
   }, [dispatch]);
 
-  const createFilter = useCallback(async (criteria: GmailFilterCriteria, action: GmailFilterAction) => {
+  const createFilter = useCallback(async (criteria: GmailFilterCriteria, action: GmailFilterAction, options?: { silent?: boolean }) => {
     try {
       dispatch({ type: 'SET_LOADING', payload: true });
       const { filter } = await sendMessage<{ filter: GmailFilter }>({
@@ -68,17 +68,21 @@ export function useFilters() {
         action,
       });
       dispatch({ type: 'ADD_FILTER', payload: filter });
-      dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastFilterCreated'), type: 'success' } });
+      if (!options?.silent) {
+        dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastFilterCreated'), type: 'success' } });
+      }
       return filter;
     } catch (err) {
-      dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastCreateFilterFailed'), type: 'error' } });
+      if (!options?.silent) {
+        dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastCreateFilterFailed'), type: 'error' } });
+      }
       throw err;
     } finally {
       dispatch({ type: 'SET_LOADING', payload: false });
     }
   }, [dispatch]);
 
-  const deleteFilter = useCallback(async (filterId: string) => {
+  const deleteFilter = useCallback(async (filterId: string, options?: { silent?: boolean }) => {
     try {
       await sendMessage({ type: 'DELETE_FILTER', filterId });
       dispatch({ type: 'REMOVE_FILTER', payload: filterId });
@@ -88,9 +92,13 @@ export function useFilters() {
         filterIds: f.filterIds.filter((id) => id !== filterId),
       }));
       await saveFolders(cleanedFolders);
-      dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastFilterDeleted'), type: 'success' } });
+      if (!options?.silent) {
+        dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastFilterDeleted'), type: 'success' } });
+      }
     } catch (err) {
-      dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastDeleteFilterFailed'), type: 'error' } });
+      if (!options?.silent) {
+        dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastDeleteFilterFailed'), type: 'error' } });
+      }
       throw err;
     }
   }, [dispatch, state.folders]);
@@ -127,11 +135,30 @@ export function useFilters() {
   const fetchLabels = useCallback(async () => {
     try {
       const { labels } = await sendMessage<{ labels: Array<{ id: string; name: string; type: string }> }>({ type: 'GET_LABELS' });
-      dispatch({ type: 'SET_LABELS', payload: labels as any });
+      const sorted = [...labels].sort((a, b) => a.name.localeCompare(b.name));
+      dispatch({ type: 'SET_LABELS', payload: sorted as any });
     } catch (err) {
       console.warn('Failed to fetch labels:', err);
     }
   }, [dispatch]);
+
+  const createLabel = useCallback(async (name: string) => {
+    try {
+      const { label } = await sendMessage<{ label: { id: string; name: string; type: string } }>({
+        type: 'CREATE_LABEL',
+        name,
+      });
+      const updatedLabels = [...state.labels, label as any].sort((a, b) =>
+        a.name.localeCompare(b.name)
+      );
+      dispatch({ type: 'SET_LABELS', payload: updatedLabels });
+      dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastLabelCreated', [name]), type: 'success' } });
+      return label;
+    } catch (err) {
+      dispatch({ type: 'SHOW_TOAST', payload: { message: t('toastCreateLabelFailed'), type: 'error' } });
+      throw err;
+    }
+  }, [dispatch, state.labels]);
 
   return {
     filters: state.filters,
@@ -144,5 +171,6 @@ export function useFilters() {
     updateFilterOrder,
     saveOrderToGmail,
     fetchLabels,
+    createLabel,
   };
 }

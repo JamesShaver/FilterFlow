@@ -24,7 +24,7 @@ export function FolderList({ filters, onDeleteFilter, onEditFilter, onCreateFold
   return (
     <div className="space-y-2">
       <div className="flex items-center justify-between">
-        <h3 className="text-xs font-medium text-slate-500 uppercase tracking-wider">{t('foldersHeading')}</h3>
+        <h3 className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('foldersHeading')}</h3>
         <Button variant="ghost" size="sm" onClick={onCreateFolder}>
           <svg className="w-3.5 h-3.5 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
             <path strokeLinecap="round" strokeLinejoin="round" d="M12 4v16m8-8H4" />

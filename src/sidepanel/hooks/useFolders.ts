@@ -13,13 +13,14 @@ export function useFolders() {
     });
   }, [dispatch]);
 
-  const createFolder = useCallback(async (name: string, color?: string) => {
+  const createFolder = useCallback(async (name: string, color?: string, icon?: string) => {
     const newFolder: VirtualFolder = {
       id: crypto.randomUUID(),
       name,
       filterIds: [],
       collapsed: false,
       color,
+      icon,
     };
     const updated = [...state.folders, newFolder];
     dispatch({ type: 'SET_FOLDERS', payload: updated });

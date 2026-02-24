@@ -21,20 +21,20 @@ export function ContextualCreator({ onCreateFilter }: ContextualCreatorProps) {
           transition={{ type: 'spring', stiffness: 500, damping: 30 }}
           className="overflow-hidden"
         >
-          <div className="mx-4 mb-3 bg-indigo-50 border border-indigo-100 rounded-lg p-3">
+          <div className="mx-4 mb-3 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 rounded-lg p-3">
             <div className="flex items-start gap-2">
               <div className="mt-0.5 shrink-0">
-                <svg className="w-4 h-4 text-indigo-600" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                <svg className="w-4 h-4 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                   <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
               </div>
               <div className="flex-1 min-w-0">
-                <p className="text-xs font-medium text-indigo-900 mb-0.5">{t('quickFilter')}</p>
-                <p className="text-xs text-indigo-700 truncate">
+                <p className="text-xs font-medium text-indigo-900 dark:text-indigo-200 mb-0.5">{t('quickFilter')}</p>
+                <p className="text-xs text-indigo-700 dark:text-indigo-300 truncate">
                   {emailContext.sender}
                 </p>
                 {emailContext.subject && (
-                  <p className="text-xs text-indigo-500 truncate">
+                  <p className="text-xs text-indigo-500 dark:text-indigo-400 truncate">
                     {emailContext.subject}
                   </p>
                 )}

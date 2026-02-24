@@ -28,13 +28,14 @@ FilterFlow requests the following OAuth scopes:
 
 | Scope | Purpose |
 |-------|---------|
-| `gmail.settings.basic` | Read, create, and delete your Gmail filters and labels. |
+| `gmail.settings.basic` | Read, create, and delete your Gmail filters. |
 | `gmail.readonly` | Search messages matching a filter's criteria for the dry-run preview feature. |
+| `gmail.labels` | Read, create, and manage Gmail labels so you can assign or create labels as filter actions. |
 
 ### What is accessed
 
 - **Filters** — FilterFlow reads your existing Gmail filters, creates new filters based on criteria you define, and deletes filters at your request. Filter reordering is performed by deleting and recreating filters in your preferred order.
-- **Labels** — FilterFlow reads your Gmail labels so you can assign them as filter actions.
+- **Labels** — FilterFlow reads your Gmail labels so you can assign them as filter actions, and can create new labels at your request.
 - **Message metadata (dry-run only)** — When previewing a filter, FilterFlow searches for the five most recent emails matching your criteria and retrieves only their metadata headers (From, Subject, Date). **Email bodies, attachments, and full message content are never accessed.**
 
 ### What is never accessed

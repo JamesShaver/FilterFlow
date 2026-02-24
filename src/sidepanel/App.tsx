@@ -41,7 +41,7 @@ function AppContent() {
   const { isAuthenticated } = useAuth();
   const { filters, filterOrder, fetchFilters, fetchLabels, deleteFilter, createFilter, updateFilterOrder, isLoading } = useFilters();
   const { addFilterToFolder, removeFilterFromAllFolders } = useFolders();
-  const { state } = useAppContext();
+  const { state, dispatch } = useAppContext();
   const { consolidationGroups, duplicateGroups, hasAnySuggestions } = useFilterAnalysis(filters, state.labels);
 
   const [showFilterForm, setShowFilterForm] = useState(false);
@@ -135,18 +135,36 @@ function AppContent() {
   };
 
   const handleConsolidate = async (result: ConsolidateResult) => {
-    // Merge each selected sub-group: delete originals, create merged filter
+    let mergedCount = 0;
+    let deletedCount = 0;
+
+    // Create-before-delete: create merged filters first so originals are
+    // preserved if creation fails.
     for (const subGroup of result.subGroups) {
-      for (const filter of subGroup.filters) {
-        await deleteFilter(filter.id);
-      }
+      // 1. Create the merged filter
       await createFilter(subGroup.mergeResult.criteria, {
         ...subGroup.filters[0].action,
-      });
+      }, { silent: true });
+
+      // 2. Only delete originals after the merged filter exists
+      for (const filter of subGroup.filters) {
+        await deleteFilter(filter.id, { silent: true });
+      }
+      mergedCount += subGroup.filters.length;
     }
+
     // Delete any remaining filters marked for deletion
     for (const id of result.deleteFilterIds) {
-      await deleteFilter(id);
+      await deleteFilter(id, { silent: true });
+      deletedCount++;
+    }
+
+    // Single summary toast
+    const parts: string[] = [];
+    if (mergedCount > 0) parts.push(t('toastConsolidated', [String(mergedCount), String(result.subGroups.length)]));
+    if (deletedCount > 0) parts.push(t('toastDeletedCount', [String(deletedCount)]));
+    if (parts.length > 0) {
+      dispatch({ type: 'SHOW_TOAST', payload: { message: parts.join('. '), type: 'success' } });
     }
   };
 
@@ -161,7 +179,7 @@ function AppContent() {
   const uncategorizedFilters = filters.filter((f) => !categorizedIds.has(f.id));
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
       <Header />
 
       {isAuthenticated ? (
@@ -247,7 +265,7 @@ function AppContent() {
                     folderFilterIds={uncategorizedFilters.map((f) => f.id)}
                   />
                 ) : (
-                  <p className="text-xs text-slate-400 text-center py-3">
+                  <p className="text-xs text-slate-400 dark:text-slate-500 text-center py-3">
                     {t('dragToUncategorize')}
                   </p>
                 )}
@@ -264,8 +282,8 @@ function AppContent() {
             {/* Drag overlay — floating card that follows the cursor */}
             <DragOverlay dropAnimation={null}>
               {activeFilter && (
-                <div className="bg-white rounded-lg border border-indigo-300 shadow-lg p-3 ring-2 ring-indigo-200 opacity-90 max-w-sm">
-                  <p className="text-sm font-medium text-slate-900 truncate">
+                <div className="bg-white dark:bg-slate-800 rounded-lg border border-indigo-300 dark:border-indigo-700 shadow-lg p-3 ring-2 ring-indigo-200 dark:ring-indigo-800 opacity-90">
+                  <p className="text-sm font-medium text-slate-900 dark:text-slate-100 truncate">
                     {getFilterSummary(activeFilter)}
                   </p>
                 </div>
@@ -323,9 +341,9 @@ function UncategorizedSection({ children }: { children: React.ReactNode }) {
   return (
     <div
       ref={setNodeRef}
-      className={`rounded-lg transition-colors ${isOver ? 'bg-indigo-50/50 ring-1 ring-indigo-200' : ''}`}
+      className={`rounded-lg transition-colors ${isOver ? 'bg-indigo-50/50 dark:bg-indigo-900/20 ring-1 ring-indigo-200 dark:ring-indigo-800' : ''}`}
     >
-      <h3 className="text-xs font-medium text-slate-500 uppercase tracking-wider mb-2">
+      <h3 className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider mb-2">
         {t('uncategorized')}
       </h3>
       {children}

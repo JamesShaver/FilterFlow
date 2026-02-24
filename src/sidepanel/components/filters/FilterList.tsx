@@ -94,9 +94,9 @@ export function FilterList({ onCreateFilter, onEditFilter, folderFilterIds }: Fi
   return (
     <div className="space-y-2">
       {hasOrderChanged && (
-        <div className="bg-indigo-50 rounded-lg px-3 py-2 space-y-2">
+        <div className="bg-indigo-50 dark:bg-indigo-900/30 rounded-lg px-3 py-2 space-y-2">
           <div className="flex items-center justify-between">
-            <span className="text-xs text-indigo-700 font-medium">
+            <span className="text-xs text-indigo-700 dark:text-indigo-300 font-medium">
               {reorderProgress ? reorderProgress.phase : t('orderChanged')}
             </span>
             <Button size="sm" loading={isLoading} onClick={handleSaveOrder} disabled={!!reorderProgress}>
@@ -105,7 +105,7 @@ export function FilterList({ onCreateFilter, onEditFilter, folderFilterIds }: Fi
           </div>
           {reorderProgress && reorderProgress.total > 0 && (
             <div className="space-y-1">
-              <div className="w-full bg-indigo-200 rounded-full h-1.5 overflow-hidden">
+              <div className="w-full bg-indigo-200 dark:bg-indigo-800 rounded-full h-1.5 overflow-hidden">
                 <motion.div
                   className="bg-indigo-600 h-1.5 rounded-full"
                   initial={{ width: 0 }}
@@ -113,7 +113,7 @@ export function FilterList({ onCreateFilter, onEditFilter, folderFilterIds }: Fi
                   transition={{ duration: 0.3 }}
                 />
               </div>
-              <p className="text-[10px] text-indigo-500 text-right">
+              <p className="text-[10px] text-indigo-500 dark:text-indigo-400 text-right">
                 {t('stepsProgress', [String(reorderProgress.completed), String(reorderProgress.total)])}
               </p>
             </div>

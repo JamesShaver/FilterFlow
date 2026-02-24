@@ -1,3 +1,5 @@
+# Ignore the zip file
+FilterFlow.zip
 # Logs
 logs
 *.log

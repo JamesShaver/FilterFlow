@@ -5,7 +5,7 @@ import { useAppContext } from '../../context/AppContext';
 const typeStyles = {
   success: 'bg-green-600',
   error: 'bg-red-600',
-  info: 'bg-slate-700',
+  info: 'bg-slate-700 dark:bg-slate-600',
 };
 
 const icons = {

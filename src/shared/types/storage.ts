@@ -4,6 +4,7 @@ export interface VirtualFolder {
   filterIds: string[];
   collapsed: boolean;
   color?: string;
+  icon?: string;
 }
 
 export interface TemporalFilterMeta {

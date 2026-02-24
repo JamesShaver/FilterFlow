@@ -607,6 +607,30 @@
     "message": "Error al eliminar el filtro",
     "description": "Notificación de error al eliminar filtro"
   },
+  "toastConsolidated": {
+    "message": "$COUNT$ filtros consolidados en $GROUPS$",
+    "description": "Notificación de consolidación exitosa",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "4"
+      },
+      "groups": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "toastDeletedCount": {
+    "message": "$COUNT$ filtro(s) eliminado(s)",
+    "description": "Notificación de eliminación por lotes",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
   "toastOrderSaved": {
     "message": "Orden de filtros guardado",
     "description": "Notificación de orden guardado"
@@ -650,6 +674,10 @@
     "message": "Tipo de mensaje desconocido",
     "description": "Error de tipo de mensaje desconocido"
   },
+  "errorNoActions": {
+    "message": "Por favor selecciona al menos una acción para el filtro",
+    "description": "Error al crear un filtro sin acciones"
+  },
   "errorGmailApi": {
     "message": "Error de la API de Gmail: $STATUS$",
     "description": "Error de la API de Gmail con código de estado",
@@ -659,5 +687,36 @@
         "example": "403"
       }
     }
+  },
+
+  "validationActionRequired": {
+    "message": "Por favor selecciona al menos una acción",
+    "description": "Error de validación cuando no se selecciona ninguna acción de filtro"
+  },
+  "createNewLabel": {
+    "message": "Crear nueva etiqueta...",
+    "description": "Opción para crear una nueva etiqueta en el selector de etiquetas"
+  },
+  "newLabelName": {
+    "message": "Nombre de la etiqueta",
+    "description": "Marcador de posición para el nombre de la nueva etiqueta"
+  },
+  "toastLabelCreated": {
+    "message": "Etiqueta \"$NAME$\" creada",
+    "description": "Notificación cuando se crea una etiqueta",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Boletines"
+      }
+    }
+  },
+  "toastCreateLabelFailed": {
+    "message": "Error al crear la etiqueta",
+    "description": "Notificación de error al crear etiqueta"
+  },
+  "folderIcon": {
+    "message": "Icono",
+    "description": "Etiqueta del selector de icono de carpeta"
   }
 }

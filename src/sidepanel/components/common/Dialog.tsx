@@ -38,13 +38,13 @@ export function Dialog({ open, onClose, title, size = 'sm', children }: DialogPr
           onClick={(e) => e.target === overlayRef.current && onClose()}
         >
           <motion.div
-            className={`bg-white rounded-xl shadow-xl w-[90%] ${sizeClasses[size]} max-h-[85vh] flex flex-col p-5`}
+            className={`bg-white dark:bg-slate-800 rounded-xl shadow-xl w-[90%] ${sizeClasses[size]} max-h-[85vh] flex flex-col p-5`}
             initial={{ scale: 0.95, opacity: 0 }}
             animate={{ scale: 1, opacity: 1 }}
             exit={{ scale: 0.95, opacity: 0 }}
             transition={{ type: 'spring', duration: 0.3 }}
           >
-            <h2 className="text-base font-semibold text-slate-900 mb-4 shrink-0">{title}</h2>
+            <h2 className="text-base font-semibold text-slate-900 dark:text-slate-100 mb-4 shrink-0">{title}</h2>
             <div className="overflow-y-auto min-h-0">
               {children}
             </div>

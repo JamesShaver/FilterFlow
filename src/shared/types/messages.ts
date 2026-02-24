@@ -11,6 +11,7 @@ export type BackgroundMessage =
   | { type: 'REORDER_FILTERS'; filterIds: string[] }
   | { type: 'DRY_RUN'; query: string }
   | { type: 'GET_LABELS' }
+  | { type: 'CREATE_LABEL'; name: string }
   | { type: 'EMAIL_CONTEXT'; sender: string; subject: string };
 
 // Response types

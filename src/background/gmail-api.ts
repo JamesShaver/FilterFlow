@@ -96,6 +96,12 @@ export async function createFilter(
   action: GmailFilterAction
 ): Promise<GmailFilter> {
   const apiAction = actionToApi(action);
+
+  // Gmail API rejects filters with no actions — guard early with a clear message
+  if (!apiAction.addLabelIds && !apiAction.removeLabelIds && !apiAction.forward) {
+    throw new Error(chrome.i18n.getMessage('errorNoActions') || 'Please select at least one action for the filter.');
+  }
+
   const raw = await gmailFetch<{ id: string; criteria: GmailFilterCriteria; action: { addLabelIds?: string[]; removeLabelIds?: string[]; forward?: string } }>('/settings/filters', {
     method: 'POST',
     body: JSON.stringify({ criteria, action: apiAction }),
@@ -117,6 +123,18 @@ export async function getFilter(filterId: string): Promise<GmailFilter> {
 export async function listLabels(): Promise<GmailLabel[]> {
   const data = await gmailFetch<{ labels: GmailLabel[] }>('/labels');
   return data.labels || [];
+}
+
+export async function createLabel(name: string): Promise<GmailLabel> {
+  const label = await gmailFetch<GmailLabel>('/labels', {
+    method: 'POST',
+    body: JSON.stringify({
+      name,
+      labelListVisibility: 'labelShow',
+      messageListVisibility: 'show',
+    }),
+  });
+  return { id: label.id, name: label.name, type: 'user' };
 }
 
 export async function searchMessages(query: string): Promise<GmailMessage[]> {

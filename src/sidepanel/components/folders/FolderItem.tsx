@@ -29,13 +29,13 @@ export function FolderItem({ folder, filters, labels, temporalFilters, onDeleteF
     <div
       ref={setNodeRef}
       className={`rounded-lg border transition-colors ${
-        isOver ? 'border-indigo-300 bg-indigo-50/50' : 'border-slate-200'
+        isOver ? 'border-indigo-300 dark:border-indigo-700 bg-indigo-50/50 dark:bg-indigo-900/20' : 'border-slate-200 dark:border-slate-700'
       }`}
     >
       {/* Folder header */}
       <div className="group flex items-center gap-2 px-3 py-2 cursor-pointer" onClick={() => toggleFolderCollapse(folder.id)}>
         <motion.svg
-          className="w-3.5 h-3.5 text-slate-400"
+          className="w-3.5 h-3.5 text-slate-400 dark:text-slate-500"
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -46,16 +46,17 @@ export function FolderItem({ folder, filters, labels, temporalFilters, onDeleteF
           <path strokeLinecap="round" strokeLinejoin="round" d="M9 5l7 7-7 7" />
         </motion.svg>
 
-        {folder.color && (
-          <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: folder.color }} />
-        )}
+        <i
+          className={`fa-solid fa-${folder.icon || 'folder'} text-sm`}
+          style={{ color: folder.color }}
+        />
 
-        <span className="flex-1 text-sm font-medium text-slate-900">{folder.name}</span>
+        <span className="flex-1 text-sm font-medium text-slate-900 dark:text-slate-100">{folder.name}</span>
 
         <Badge>{folderFilters.length}</Badge>
 
         <button
-          className="p-0.5 text-slate-400 hover:text-slate-600 rounded opacity-0 group-hover:opacity-100 transition-opacity"
+          className="p-0.5 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 rounded opacity-0 group-hover:opacity-100 transition-opacity"
           onClick={(e) => {
             e.stopPropagation();
             onEditFolder(folder);
@@ -96,7 +97,7 @@ export function FolderItem({ folder, filters, labels, temporalFilters, onDeleteF
 
       {!folder.collapsed && folderFilters.length === 0 && (
         <div className="px-3 pb-3">
-          <p className="text-xs text-slate-400 text-center py-2">
+          <p className="text-xs text-slate-400 dark:text-slate-500 text-center py-2">
             {t('dragFiltersHere')}
           </p>
         </div>

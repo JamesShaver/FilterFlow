@@ -1,6 +1,6 @@
 import type { BackgroundMessage, MessageResponse } from '@shared/types/messages';
 import { getAuthToken, signOut } from './auth';
-import { listFilters, createFilter, deleteFilter, searchMessages, listLabels } from './gmail-api';
+import { listFilters, createFilter, deleteFilter, searchMessages, listLabels, createLabel } from './gmail-api';
 
 // Store latest email context from content script
 let currentEmailContext: { sender: string; subject: string } | null = null;
@@ -117,6 +117,11 @@ async function handleAsync(message: BackgroundMessage): Promise<MessageResponse>
     case 'GET_LABELS': {
       const labels = await listLabels();
       return { success: true, data: { labels } };
+    }
+
+    case 'CREATE_LABEL': {
+      const label = await createLabel(message.name);
+      return { success: true, data: { label } };
     }
 
     case 'EMAIL_CONTEXT': {

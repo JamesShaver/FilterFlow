@@ -13,7 +13,7 @@ export function FilterActions({ onEdit, onDelete }: FilterActionsProps) {
     <div className="flex items-center gap-0.5 opacity-0 group-hover:opacity-100 transition-opacity shrink-0">
       {onEdit && (
         <button
-          className="p-1 text-slate-400 hover:text-slate-600 rounded"
+          className="p-1 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 rounded"
           onClick={onEdit}
           title={t('editFilter')}
         >
@@ -25,7 +25,7 @@ export function FilterActions({ onEdit, onDelete }: FilterActionsProps) {
       {confirmDelete ? (
         <div className="flex items-center gap-1">
           <button
-            className="p-1 text-red-600 hover:text-red-700 rounded text-xs font-medium"
+            className="p-1 text-red-600 dark:text-red-400 hover:text-red-700 dark:hover:text-red-300 rounded text-xs font-medium"
             onClick={() => {
               onDelete();
               setConfirmDelete(false);
@@ -34,7 +34,7 @@ export function FilterActions({ onEdit, onDelete }: FilterActionsProps) {
             {t('delete')}
           </button>
           <button
-            className="p-1 text-slate-400 hover:text-slate-600 rounded text-xs"
+            className="p-1 text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300 rounded text-xs"
             onClick={() => setConfirmDelete(false)}
           >
             {t('cancel')}
@@ -42,7 +42,7 @@ export function FilterActions({ onEdit, onDelete }: FilterActionsProps) {
         </div>
       ) : (
         <button
-          className="p-1 text-slate-400 hover:text-red-500 rounded"
+          className="p-1 text-slate-400 dark:text-slate-500 hover:text-red-500 dark:hover:text-red-400 rounded"
           onClick={() => setConfirmDelete(true)}
           title={t('deleteFilter')}
         >
