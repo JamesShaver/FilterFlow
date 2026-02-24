@@ -11,6 +11,14 @@ interface ContextualCreatorProps {
 export function ContextualCreator({ onCreateFilter }: ContextualCreatorProps) {
   const { emailContext, clearContext } = useEmailContext();
 
+  const handleCreate = () => {
+    if (!emailContext) return;
+    onCreateFilter({
+      from: emailContext.sender || undefined,
+      subject: emailContext.subject || undefined,
+    });
+  };
+
   return (
     <AnimatePresence>
       {emailContext && (
@@ -30,9 +38,11 @@ export function ContextualCreator({ onCreateFilter }: ContextualCreatorProps) {
               </div>
               <div className="flex-1 min-w-0">
                 <p className="text-xs font-medium text-indigo-900 dark:text-indigo-200 mb-0.5">{t('quickFilter')}</p>
-                <p className="text-xs text-indigo-700 dark:text-indigo-300 truncate">
-                  {emailContext.sender}
-                </p>
+                {emailContext.sender && (
+                  <p className="text-xs text-indigo-700 dark:text-indigo-300 truncate">
+                    {emailContext.sender}
+                  </p>
+                )}
                 {emailContext.subject && (
                   <p className="text-xs text-indigo-500 dark:text-indigo-400 truncate">
                     {emailContext.subject}
@@ -41,9 +51,9 @@ export function ContextualCreator({ onCreateFilter }: ContextualCreatorProps) {
                 <div className="flex items-center gap-2 mt-2">
                   <Button
                     size="sm"
-                    onClick={() => onCreateFilter({ from: emailContext.sender })}
+                    onClick={handleCreate}
                   >
-                    {t('filterSender')}
+                    {t('createQuickFilter')}
                   </Button>
                   <Button
                     variant="ghost"

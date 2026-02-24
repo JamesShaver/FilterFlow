@@ -149,6 +149,10 @@
     "message": "forward@example.com",
     "description": "Forward to field placeholder"
   },
+  "applyToExisting": {
+    "message": "Also apply to matching conversations",
+    "description": "Checkbox to apply filter to existing messages"
+  },
   "expirationLegend": {
     "message": "Expiration",
     "description": "Expiration fieldset legend"
@@ -564,6 +568,10 @@
     "message": "Filter sender",
     "description": "Filter sender button"
   },
+  "createQuickFilter": {
+    "message": "Create Filter",
+    "description": "Quick filter create button that opens form with pre-filled criteria"
+  },
   "dismiss": {
     "message": "Dismiss",
     "description": "Dismiss button"
@@ -718,5 +726,9 @@
   "folderIcon": {
     "message": "Icon",
     "description": "Folder icon picker label"
+  },
+  "searchFilters": {
+    "message": "Search filters...",
+    "description": "Search input placeholder in header"
   }
 }

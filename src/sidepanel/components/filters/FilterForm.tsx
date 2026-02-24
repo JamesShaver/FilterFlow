@@ -2,12 +2,16 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import type { GmailFilterCriteria, GmailFilterAction } from '@shared/types/gmail';
 import { useFilters } from '../../hooks/useFilters';
+import { useFolders } from '../../hooks/useFolders';
 import { useAppContext } from '../../context/AppContext';
+import { buildSearchQuery } from '../../lib/filter-utils';
+import { sendMessage } from '../../lib/message';
 import { Button } from '../common/Button';
 import { DryRunPreview } from './DryRunPreview';
 import { t } from '../../lib/i18n';
 
 interface FilterFormProps {
+  editingFilterId?: string;
   initialCriteria?: GmailFilterCriteria;
   initialAction?: GmailFilterAction;
   onClose: () => void;
@@ -26,12 +30,14 @@ function hasAnyAction(action: GmailFilterAction): boolean {
   );
 }
 
-export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFormProps) {
-  const { createFilter, createLabel, labels, isLoading } = useFilters();
+export function FilterForm({ editingFilterId, initialCriteria, initialAction, onClose }: FilterFormProps) {
+  const { createFilter, deleteFilter, createLabel, labels, isLoading } = useFilters();
   const { state } = useAppContext();
+  const { addFilterToFolder } = useFolders();
 
   const [criteria, setCriteria] = useState<GmailFilterCriteria>(initialCriteria || {});
   const [action, setAction] = useState<GmailFilterAction>(initialAction || {});
+  const [applyToExisting, setApplyToExisting] = useState(false);
   const [enableExpiry, setEnableExpiry] = useState(false);
   const [expiryDays, setExpiryDays] = useState(7);
   const [actionError, setActionError] = useState<string | null>(null);
@@ -67,6 +73,14 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
       return;
     }
     try {
+      // When editing, capture folder membership before deleting the old filter
+      let oldFolderIds: string[] = [];
+      if (editingFilterId) {
+        oldFolderIds = state.folders
+          .filter((f) => f.filterIds.includes(editingFilterId))
+          .map((f) => f.id);
+        await deleteFilter(editingFilterId, { silent: true });
+      }
       const filter = await createFilter(criteria, action);
 
       // If expiry is enabled, save temporal metadata
@@ -81,6 +95,25 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
             createdAt: Date.now(),
           },
         ]);
+      }
+
+      // Restore folder membership for the new filter ID
+      if (filter && oldFolderIds.length > 0) {
+        for (const folderId of oldFolderIds) {
+          await addFilterToFolder(folderId, filter.id);
+        }
+      }
+
+      // Apply filter actions to existing matching messages
+      if (applyToExisting) {
+        const query = buildSearchQuery(criteria);
+        if (query.trim()) {
+          sendMessage<{ applied: number }>({
+            type: 'APPLY_FILTER_TO_EXISTING',
+            query,
+            action,
+          }).catch(() => {}); // Best-effort — filter is already saved
+        }
       }
 
       onClose();
@@ -100,7 +133,7 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
     >
       <div className="px-4 py-3 border-b border-slate-100 dark:border-slate-700">
         <div className="flex items-center justify-between">
-          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{t('createFilter')}</h2>
+          <h2 className="text-sm font-semibold text-slate-900 dark:text-slate-100">{editingFilterId ? t('editFilter') : t('createFilter')}</h2>
           <button
             className="text-slate-400 dark:text-slate-500 hover:text-slate-600 dark:hover:text-slate-300"
             onClick={onClose}
@@ -327,6 +360,17 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
           </div>
         </fieldset>
 
+        {/* Apply to existing */}
+        <label className="flex items-center gap-2 text-sm text-slate-700 dark:text-slate-300">
+          <input
+            type="checkbox"
+            className="rounded border-slate-300 dark:border-slate-600 text-indigo-600 focus:ring-indigo-500"
+            checked={applyToExisting}
+            onChange={(e) => setApplyToExisting(e.target.checked)}
+          />
+          {t('applyToExisting')}
+        </label>
+
         {/* Auto-expiry */}
         <fieldset className="space-y-3">
           <legend className="text-xs font-medium text-slate-500 dark:text-slate-400 uppercase tracking-wider">{t('expirationLegend')}</legend>
@@ -363,7 +407,7 @@ export function FilterForm({ initialCriteria, initialAction, onClose }: FilterFo
         {/* Submit */}
         <div className="flex items-center gap-2 pt-2">
           <Button type="submit" loading={isLoading} className="flex-1">
-            {t('createFilter')}
+            {editingFilterId ? t('saveChanges') : t('createFilter')}
           </Button>
           <Button type="button" variant="secondary" onClick={onClose}>
             {t('cancel')}

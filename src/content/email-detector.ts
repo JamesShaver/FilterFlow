@@ -8,47 +8,37 @@ function extractEmailContext(): { sender: string; subject: string } | null {
   const subject = subjectEl.textContent?.trim() || '';
 
   // Find the sender from the currently visible email.
-  // Gmail renders each expanded message inside a container with class "adn".
-  // Within that, the sender is a span.gD with an `email` attribute.
-  // When multiple messages exist in a thread, we want the most recently
-  // expanded one (typically last in DOM order for replies, first for a single email).
-  // Scope our search to the visible message view area to avoid picking up
-  // stale sender elements from the email list.
+  // Gmail renders the sender as a span.gD with an `email` attribute inside
+  // expanded message containers. We search broadly to avoid scoping issues
+  // with Gmail's deeply nested .nH divs.
   let sender = '';
 
-  // Look within the main message view pane. Gmail wraps the conversation in
-  // a container that includes the subject — walk up from it to scope our search.
-  const conversationContainer = subjectEl.closest('.nH') || document.body;
-
-  // Get all sender elements within the conversation view
-  const senderEls = conversationContainer.querySelectorAll<HTMLElement>('.gD[email]');
+  // Primary: look for visible sender elements with email attribute anywhere
+  // in the message view. Gmail uses .gD[email] on the sender name span.
+  const senderEls = document.querySelectorAll<HTMLElement>('.gD[email]');
   if (senderEls.length > 0) {
-    // For a single email: there's one .gD[email]
-    // For a thread: take the first (original sender) — this is the most useful
-    // for creating a filter since it represents the conversation starter.
-    // However, we check visibility: the last *expanded* message is most relevant.
-    // In practice, Gmail expands the latest message, so we take the last visible one.
+    // Take the last visible (expanded) sender — Gmail expands the latest message
     for (let i = senderEls.length - 1; i >= 0; i--) {
       const el = senderEls[i];
-      // Check the element is in an expanded (visible) message, not a collapsed stub
       if (el.offsetParent !== null) {
         sender = el.getAttribute('email') || '';
         if (sender) break;
       }
     }
-    // If none were visible (shouldn't happen), fall back to first
-    if (!sender && senderEls.length > 0) {
+    // Fall back to first if none were visible
+    if (!sender) {
       sender = senderEls[0].getAttribute('email') || '';
     }
   }
 
-  // Fallback selectors
+  // Fallback: data-hovercard-id on sender elements, or the "from" header
   if (!sender) {
-    const fallback = conversationContainer.querySelector<HTMLElement>(
-      '[data-hovercard-id].gD, .go .g2'
+    const fallback = document.querySelector<HTMLElement>(
+      'span.gD[data-hovercard-id], span[email], .go .g2'
     );
     if (fallback) {
       sender = fallback.getAttribute('data-hovercard-id') ||
+        fallback.getAttribute('email') ||
         fallback.textContent?.trim() || '';
     }
   }
@@ -58,6 +48,9 @@ function extractEmailContext(): { sender: string; subject: string } | null {
 }
 
 function sendContext(context: { sender: string; subject: string }) {
+  // chrome.runtime can be undefined if the extension context was invalidated
+  // (e.g., after extension reload/update)
+  if (!chrome.runtime?.id) return;
   chrome.runtime.sendMessage({
     type: 'EMAIL_CONTEXT',
     sender: context.sender,
@@ -94,10 +87,10 @@ export function startEmailDetection() {
     // Gmail's SPA navigation means the DOM may update incrementally.
     lastSender = '';
     lastSubject = '';
-    // Delay to let Gmail render the new email's DOM
+    // Staggered checks to let Gmail render the email's DOM incrementally
     setTimeout(checkForEmailContext, 500);
-    // Second check in case sender element loads slower than subject
     setTimeout(checkForEmailContext, 1200);
+    setTimeout(checkForEmailContext, 2500);
   });
 
   // Debounced MutationObserver — wait for DOM to settle before extracting

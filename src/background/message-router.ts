@@ -1,6 +1,6 @@
 import type { BackgroundMessage, MessageResponse } from '@shared/types/messages';
 import { getAuthToken, signOut } from './auth';
-import { listFilters, createFilter, deleteFilter, searchMessages, listLabels, createLabel } from './gmail-api';
+import { listFilters, createFilter, deleteFilter, searchMessages, searchMessageIds, batchModifyMessages, actionToApi, listLabels, createLabel } from './gmail-api';
 
 // Store latest email context from content script
 let currentEmailContext: { sender: string; subject: string } | null = null;
@@ -133,6 +133,18 @@ async function handleAsync(message: BackgroundMessage): Promise<MessageResponse>
         subject: message.subject,
       }).catch(() => {}); // Ignore if no listener
       return { success: true, data: undefined };
+    }
+
+    case 'GET_EMAIL_CONTEXT': {
+      return { success: true, data: { emailContext: currentEmailContext } };
+    }
+
+    case 'APPLY_FILTER_TO_EXISTING': {
+      const ids = await searchMessageIds(message.query);
+      if (ids.length === 0) return { success: true, data: { applied: 0 } };
+      const apiAction = actionToApi(message.action);
+      const applied = await batchModifyMessages(ids, apiAction.addLabelIds, apiAction.removeLabelIds);
+      return { success: true, data: { applied } };
     }
 
     default:

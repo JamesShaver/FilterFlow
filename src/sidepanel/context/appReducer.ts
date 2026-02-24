@@ -10,6 +10,7 @@ export interface AppState {
   temporalFilters: TemporalFilterMeta[];
   filterOrder: string[];
   emailContext: { sender: string; subject: string } | null;
+  searchQuery: string;
   error: string | null;
   toast: { message: string; type: 'success' | 'error' | 'info' } | null;
 }
@@ -25,6 +26,7 @@ export type AppAction =
   | { type: 'SET_TEMPORAL_FILTERS'; payload: TemporalFilterMeta[] }
   | { type: 'SET_FILTER_ORDER'; payload: string[] }
   | { type: 'SET_EMAIL_CONTEXT'; payload: { sender: string; subject: string } | null }
+  | { type: 'SET_SEARCH_QUERY'; payload: string }
   | { type: 'SET_ERROR'; payload: string | null }
   | { type: 'SHOW_TOAST'; payload: { message: string; type: 'success' | 'error' | 'info' } }
   | { type: 'DISMISS_TOAST' };
@@ -38,6 +40,7 @@ export const initialState: AppState = {
   temporalFilters: [],
   filterOrder: [],
   emailContext: null,
+  searchQuery: '',
   error: null,
   toast: null,
 };
@@ -71,6 +74,8 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, filterOrder: action.payload };
     case 'SET_EMAIL_CONTEXT':
       return { ...state, emailContext: action.payload };
+    case 'SET_SEARCH_QUERY':
+      return { ...state, searchQuery: action.payload };
     case 'SET_ERROR':
       return { ...state, error: action.payload };
     case 'SHOW_TOAST':

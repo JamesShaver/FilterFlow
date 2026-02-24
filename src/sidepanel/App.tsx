@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useMemo } from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import {
   DndContext,
@@ -49,6 +49,7 @@ function AppContent() {
   const [editingFolder, setEditingFolder] = useState<VirtualFolder | null>(null);
   const [editingFilter, setEditingFilter] = useState<GmailFilter | null>(null);
   const [initialCriteria, setInitialCriteria] = useState<GmailFilterCriteria | undefined>();
+  const [formKey, setFormKey] = useState(0);
   const [activeFilter, setActiveFilter] = useState<GmailFilter | null>(null);
   const [consolidateGroup, setConsolidateGroup] = useState<ConsolidationGroup | null>(null);
   const [duplicateGroup, setDuplicateGroup] = useState<DuplicateGroup | null>(null);
@@ -118,13 +119,16 @@ function AppContent() {
   }, [isAuthenticated, fetchFilters, fetchLabels]);
 
   const handleCreateFilter = (criteria?: { from?: string; subject?: string }) => {
+    setEditingFilter(null);
     setInitialCriteria(criteria);
+    setFormKey((k) => k + 1);
     setShowFilterForm(true);
   };
 
   const handleEditFilter = (filter: GmailFilter) => {
     setEditingFilter(filter);
     setInitialCriteria(filter.criteria);
+    setFormKey((k) => k + 1);
     setShowFilterForm(true);
   };
 
@@ -142,9 +146,16 @@ function AppContent() {
     // preserved if creation fails.
     for (const subGroup of result.subGroups) {
       // 1. Create the merged filter
-      await createFilter(subGroup.mergeResult.criteria, {
-        ...subGroup.filters[0].action,
-      }, { silent: true });
+      try {
+        await createFilter(subGroup.mergeResult.criteria, {
+          ...subGroup.filters[0].action,
+        }, { silent: true });
+      } catch (err) {
+        // "Filter already exists" means the merged version is already in Gmail —
+        // safe to proceed with deleting the redundant originals.
+        const msg = (err as Error)?.message ?? '';
+        if (!msg.includes('already exists')) throw err;
+      }
 
       // 2. Only delete originals after the merged filter exists
       for (const filter of subGroup.filters) {
@@ -174,9 +185,28 @@ function AppContent() {
     }
   };
 
+  // Search filtering: match against criteria fields and label names
+  const searchedFilters = useMemo(() => {
+    const q = state.searchQuery.trim().toLowerCase();
+    if (!q) return filters;
+    const labelMap = new Map(state.labels.map((l) => [l.id, l.name.toLowerCase()]));
+    return filters.filter((filter) => {
+      const { from, to, subject, query } = filter.criteria;
+      if (from?.toLowerCase().includes(q)) return true;
+      if (to?.toLowerCase().includes(q)) return true;
+      if (subject?.toLowerCase().includes(q)) return true;
+      if (query?.toLowerCase().includes(q)) return true;
+      // Check applied label names
+      for (const labelId of filter.action.addLabelIds ?? []) {
+        if (labelMap.get(labelId)?.includes(q)) return true;
+      }
+      return false;
+    });
+  }, [filters, state.searchQuery, state.labels]);
+
   // Get uncategorized filters (not in any folder)
   const categorizedIds = new Set(state.folders.flatMap((f) => f.filterIds));
-  const uncategorizedFilters = filters.filter((f) => !categorizedIds.has(f.id));
+  const uncategorizedFilters = searchedFilters.filter((f) => !categorizedIds.has(f.id));
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-slate-900">
@@ -191,6 +221,8 @@ function AppContent() {
           <AnimatePresence>
             {showFilterForm && (
               <FilterForm
+                key={formKey}
+                editingFilterId={editingFilter?.id}
                 initialCriteria={initialCriteria}
                 initialAction={editingFilter?.action}
                 onClose={handleCloseForm}
@@ -248,7 +280,7 @@ function AppContent() {
           <DndContext sensors={sensors} collisionDetection={closestCorners} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
             {/* Folders */}
             <FolderList
-              filters={filters}
+              filters={searchedFilters}
               onDeleteFilter={deleteFilter}
               onEditFilter={handleEditFilter}
               onCreateFolder={() => { setEditingFolder(null); setShowFolderDialog(true); }}
@@ -276,6 +308,7 @@ function AppContent() {
               <FilterList
                 onCreateFilter={() => handleCreateFilter()}
                 onEditFilter={handleEditFilter}
+                folderFilterIds={state.searchQuery ? searchedFilters.map((f) => f.id) : undefined}
               />
             )}
 

@@ -149,6 +149,10 @@
     "message": "reenviar@ejemplo.com",
     "description": "Marcador de posición del campo Reenviar a"
   },
+  "applyToExisting": {
+    "message": "Aplicar también a conversaciones existentes",
+    "description": "Casilla para aplicar filtro a mensajes existentes"
+  },
   "expirationLegend": {
     "message": "Vencimiento",
     "description": "Leyenda del conjunto de campos de vencimiento"
@@ -564,6 +568,10 @@
     "message": "Filtrar remitente",
     "description": "Botón Filtrar remitente"
   },
+  "createQuickFilter": {
+    "message": "Crear Filtro",
+    "description": "Botón de filtro rápido que abre el formulario con criterios prellenados"
+  },
   "dismiss": {
     "message": "Descartar",
     "description": "Botón Descartar"
@@ -718,5 +726,9 @@
   "folderIcon": {
     "message": "Icono",
     "description": "Etiqueta del selector de icono de carpeta"
+  },
+  "searchFilters": {
+    "message": "Buscar filtros...",
+    "description": "Marcador de posición del campo de búsqueda en el encabezado"
   }
 }

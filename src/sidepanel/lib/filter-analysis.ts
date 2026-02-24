@@ -292,11 +292,43 @@ function getActionSignature(filter: GmailFilter, sharedLabelId: string): string 
 }
 
 /**
+ * Normalize a criteria text field's OR terms for comparison.
+ * Splits on OR, trims, lowercases, sorts, and re-joins so that
+ * "b OR a" and "a OR b" are considered equal.
+ */
+function normalizeCriteriaField(value: string | undefined): string {
+  if (!value) return '';
+  return value.split(/\s+OR\s+/).map((t) => t.trim().toLowerCase()).sort().join(' OR ');
+}
+
+/**
+ * Check whether two criteria objects are functionally equivalent.
+ * Text fields are compared with normalized OR-term ordering.
+ */
+function criteriaEqual(a: GmailFilterCriteria, b: GmailFilterCriteria): boolean {
+  const textFields: (keyof GmailFilterCriteria)[] = ['from', 'to', 'subject', 'query', 'negatedQuery'];
+  for (const field of textFields) {
+    if (normalizeCriteriaField(a[field] as string) !== normalizeCriteriaField(b[field] as string)) {
+      return false;
+    }
+  }
+  if (!!a.hasAttachment !== !!b.hasAttachment) return false;
+  if (!!a.excludeChats !== !!b.excludeChats) return false;
+  if ((a.size ?? null) !== (b.size ?? null)) return false;
+  if ((a.sizeComparison ?? null) !== (b.sizeComparison ?? null)) return false;
+  return true;
+}
+
+/**
  * Analyze a consolidation group by splitting filters into mergeable sub-groups
  * based on their criteria field signature and action compatibility.
  *
  * Filters that share the same field pattern AND action shape can be merged.
  * Singletons (unique signature) are returned as "remaining".
+ *
+ * If the merged result already matches an existing filter in the sub-group,
+ * that filter is kept and the redundant ones are moved to "remaining" instead
+ * of suggesting a merge that would create a duplicate.
  */
 export function analyzeConsolidationGroup(group: ConsolidationGroup): ConsolidationAnalysis {
   // Group by combined signature (field pattern + action shape)
@@ -320,7 +352,17 @@ export function analyzeConsolidationGroup(group: ConsolidationGroup): Consolidat
       // Should always be mergeable since they share the same field signature,
       // but guard just in case
       if (mergeResult.mergeable) {
-        subGroups.push({ filters, mergeResult });
+        // Check if a filter in this bucket already has the merged criteria.
+        // If so, it's already the consolidated version — the others are
+        // redundant and should be offered for deletion, not re-merged.
+        const existingMatch = filters.find((f) => criteriaEqual(f.criteria, mergeResult.criteria));
+        if (existingMatch) {
+          // The merged result already exists — all filters go to remaining
+          // so the user can see and delete the redundant ones
+          remaining.push(...filters);
+        } else {
+          subGroups.push({ filters, mergeResult });
+        }
       } else {
         remaining.push(...filters);
       }

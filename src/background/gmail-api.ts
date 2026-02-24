@@ -16,7 +16,7 @@ const SYSTEM_LABEL = {
  * Convert app-friendly boolean action flags to Gmail API label operations.
  * The Gmail API filter action only supports: addLabelIds, removeLabelIds, forward.
  */
-function actionToApi(action: GmailFilterAction): { addLabelIds?: string[]; removeLabelIds?: string[]; forward?: string } {
+export function actionToApi(action: GmailFilterAction): { addLabelIds?: string[]; removeLabelIds?: string[]; forward?: string } {
   const addLabelIds: string[] = [...(action.addLabelIds || [])];
   const removeLabelIds: string[] = [...(action.removeLabelIds || [])];
 
@@ -151,4 +151,51 @@ export async function searchMessages(query: string): Promise<GmailMessage[]> {
   );
 
   return messages;
+}
+
+/**
+ * Search for message IDs matching a query (lightweight — no metadata fetch).
+ * Paginates through all results to collect every matching ID.
+ */
+export async function searchMessageIds(query: string): Promise<string[]> {
+  const ids: string[] = [];
+  let pageToken: string | undefined;
+
+  do {
+    const url = `/messages?q=${encodeURIComponent(query)}&maxResults=500${pageToken ? `&pageToken=${pageToken}` : ''}`;
+    const data = await gmailFetch<{ messages?: Array<{ id: string }>; nextPageToken?: string }>(url);
+    if (data.messages) {
+      ids.push(...data.messages.map((m) => m.id));
+    }
+    pageToken = data.nextPageToken;
+  } while (pageToken);
+
+  return ids;
+}
+
+/**
+ * Batch-modify messages to apply label operations.
+ * Gmail limits batchModify to 1000 message IDs per call.
+ */
+export async function batchModifyMessages(
+  messageIds: string[],
+  addLabelIds?: string[],
+  removeLabelIds?: string[],
+): Promise<number> {
+  if (messageIds.length === 0) return 0;
+
+  const BATCH_LIMIT = 1000;
+  for (let i = 0; i < messageIds.length; i += BATCH_LIMIT) {
+    const batch = messageIds.slice(i, i + BATCH_LIMIT);
+    await gmailFetch<void>('/messages/batchModify', {
+      method: 'POST',
+      body: JSON.stringify({
+        ids: batch,
+        ...(addLabelIds?.length ? { addLabelIds } : {}),
+        ...(removeLabelIds?.length ? { removeLabelIds } : {}),
+      }),
+    });
+  }
+
+  return messageIds.length;
 }
