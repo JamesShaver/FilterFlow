@@ -165,7 +165,7 @@ A: Visit the [GitHub Issues page](https://github.com/JamesShaver/FilterFlow/issu
 ---
 
 <p style="text-align: center; color: #6a737d; margin-top: 3rem;">
-  <a href="privacy">Privacy Policy</a><br><br>
+  <a href="privacy">Privacy Policy</a> · <a href="terms">Terms of Service</a><br><br>
   FilterFlow is open source under the MIT License.<br>
   Built with React, TypeScript, and the Gmail API.
 </p>
