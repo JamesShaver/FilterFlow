@@ -8,7 +8,7 @@ layout: default
 
 FilterFlow is a Chrome extension that replaces Gmail's clunky filter settings with a drag-and-drop Side Panel — so you can create, organize, and manage filters without ever leaving your inbox.
 
-[Install from Chrome Web Store](#installation){: .btn } &nbsp; [View on GitHub](https://github.com/nicosql/FilterFlow){: .btn }
+[Install from Chrome Web Store](#installation){: .btn } &nbsp; [View on GitHub](https://github.com/JamesShaver/FilterFlow){: .btn }
 
 ---
 
@@ -54,7 +54,7 @@ If you want to modify FilterFlow or contribute to development:
 
 2. **Clone the repository:**
    ```bash
-   git clone https://github.com/nicosql/FilterFlow.git
+   git clone https://github.com/JamesShaver/FilterFlow.git
    cd FilterFlow
    ```
 
@@ -157,10 +157,110 @@ A: Try these steps:
 1. Open FilterFlow and check that the filter appears in your list.
 2. Verify the criteria match what you expect using the Dry Run preview.
 3. Sign out and sign back in to refresh your authentication token.
-4. If the issue persists, [open a bug report](https://github.com/nicosql/FilterFlow/issues).
+4. If the issue persists, [open a bug report](https://github.com/JamesShaver/FilterFlow/issues).
 
 **Q: How do I report a bug or request a feature?**
-A: Visit the [GitHub Issues page](https://github.com/nicosql/FilterFlow/issues) to submit a bug report or feature request.
+A: Visit the [GitHub Issues page](https://github.com/JamesShaver/FilterFlow/issues) to submit a bug report or feature request.
+
+---
+
+## Privacy Policy
+
+**Last updated:** February 23, 2026
+
+FilterFlow is a Chrome extension that replaces Gmail's built-in filter settings with a drag-and-drop side panel interface. This privacy policy explains what data FilterFlow accesses, how it is used, and how it is protected.
+
+### Data We Collect
+
+**FilterFlow does not collect, store, or transmit any personal data to external servers.** There is no analytics, telemetry, tracking, or third-party data collection of any kind.
+
+### Google Account Authentication
+
+FilterFlow uses Google OAuth 2.0 via Chrome's built-in `chrome.identity` API to authenticate your Google account. This allows the extension to make authorized requests to the Gmail API on your behalf.
+
+- OAuth tokens are managed entirely by Chrome's identity system and are **never stored, logged, or accessed directly** by the extension.
+- You can revoke access at any time by signing out within the extension or by removing FilterFlow from your [Google Account permissions](https://myaccount.google.com/permissions).
+- Upon sign-out, the extension revokes the OAuth token with Google and removes it from Chrome's cache.
+
+### Gmail API Usage
+
+FilterFlow requests the following OAuth scopes:
+
+| Scope | Purpose |
+|---|---|
+| `gmail.settings.basic` | Read, create, and delete your Gmail filters. |
+| `gmail.readonly` | Search messages matching a filter's criteria for the dry-run preview feature. |
+| `gmail.labels` | Read, create, and manage Gmail labels so you can assign or create labels as filter actions. |
+
+**What is accessed:**
+
+- **Filters** — FilterFlow reads your existing Gmail filters, creates new filters based on criteria you define, and deletes filters at your request. Filter reordering is performed by deleting and recreating filters in your preferred order.
+- **Labels** — FilterFlow reads your Gmail labels so you can assign them as filter actions, and can create new labels at your request.
+- **Message metadata (dry-run only)** — When previewing a filter, FilterFlow searches for the five most recent emails matching your criteria and retrieves only their metadata headers (From, Subject, Date). **Email bodies, attachments, and full message content are never accessed.**
+
+**What is never accessed:**
+
+- Email message bodies or full content
+- Attachments
+- Contact lists
+- Calendar data
+- Google Drive files
+- Any other Google service beyond Gmail filters, labels, and message metadata
+
+### Data Stored Locally
+
+FilterFlow stores a small amount of configuration data in `chrome.storage.sync` (Chrome's built-in synchronized storage, encrypted by Chrome and synced across your signed-in browsers):
+
+| Data | Purpose |
+|---|---|
+| **Virtual folders** | Folder names, colors, collapsed state, and which filter IDs are assigned to each folder. Folders are a local organizational feature and are not synced to Gmail. |
+| **Filter order** | An array of filter IDs representing your preferred display order. |
+| **Auto-expiration metadata** | For filters you mark as temporary: the filter ID, creation timestamp, and expiration timestamp. Used to automatically delete expired filters. |
+
+This data contains **no personal information** — only filter IDs (opaque strings assigned by Gmail), folder names you choose, and timestamps.
+
+### Content Script
+
+FilterFlow injects a content script on `mail.google.com` to detect the sender and subject of the email you are currently viewing. This enables the "Quick Filter" feature.
+
+- The content script reads only the sender email address and subject line from the Gmail page DOM.
+- This data is held **in memory only** for the duration of your browsing session and is never written to disk or transmitted externally.
+- The content script does not modify, read, or interact with any other part of the Gmail page.
+
+### Third-Party Services
+
+FilterFlow communicates exclusively with Google's services:
+
+- **Google OAuth** (`accounts.google.com`) — for authentication and token management.
+- **Gmail API** (`www.googleapis.com/gmail/v1/`) — for filter, label, and message metadata operations.
+
+No other external services, APIs, servers, or endpoints are contacted. FilterFlow has no backend server. All processing occurs locally in your browser.
+
+### Data Sharing
+
+FilterFlow does not share, sell, rent, or disclose any user data to any third party, for any purpose, under any circumstances.
+
+### Data Retention
+
+- **OAuth tokens** are managed by Chrome and are cleared when you sign out or remove the extension.
+- **Local storage data** (folders, filter order, expiration metadata) persists in `chrome.storage.sync` until you uninstall the extension or manually clear Chrome's extension storage.
+- **In-memory data** (current email context) is discarded when the browser tab is closed or the extension's service worker is terminated.
+
+### Children's Privacy
+
+FilterFlow is not directed at children under the age of 13 and does not knowingly collect personal information from children.
+
+### Changes to This Policy
+
+If this privacy policy is updated, the revised version will be published in the extension's repository with an updated date at the top of this document.
+
+### Contact
+
+If you have questions or concerns about this privacy policy, you can [open an issue on GitHub](https://github.com/JamesShaver/FilterFlow/issues).
+
+### Google API Services User Data Policy
+
+FilterFlow's use and transfer of information received from Google APIs adheres to the [Google API Services User Data Policy](https://developers.google.com/terms/api-services-user-data-policy), including the Limited Use requirements.
 
 ---
 
