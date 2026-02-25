@@ -66,7 +66,7 @@ src/
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/nicosql/FilterFlow.git
+   git clone https://github.com/JamesShaver/FilterFlow.git
    cd filterflow
    ```
 
@@ -146,7 +146,7 @@ Runs Vite in watch mode. After each rebuild, go to `chrome://extensions/` and cl
 
 ## Documentation
 
-Full usage guide and installation instructions are available at the [FilterFlow documentation site](https://nicosql.github.io/FilterFlow/).
+Full usage guide and installation instructions are available at the [FilterFlow documentation site](https://jamesshaver.github.io/FilterFlow/).
 
 ## License
 
