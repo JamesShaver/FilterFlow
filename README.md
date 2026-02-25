@@ -23,6 +23,9 @@ Set a filter to automatically delete itself after a configurable period (1 day t
 - **Consolidation suggestions** — detects filters with identical actions that can be merged
 - **Duplicate detection** — finds and lets you review redundant filters
 
+### Filter Search
+Quickly find any filter by typing in the search bar. Searches across all criteria and actions to surface matching filters instantly.
+
 ## Tech Stack
 
 | Layer | Technology |
@@ -63,7 +66,7 @@ src/
 1. **Clone the repository**
 
    ```bash
-   git clone https://github.com/your-username/filterflow.git
+   git clone https://github.com/nicosql/FilterFlow.git
    cd filterflow
    ```
 
@@ -82,7 +85,9 @@ src/
      "client_id": "YOUR_CLIENT_ID.apps.googleusercontent.com",
      "scopes": [
        "https://www.googleapis.com/auth/gmail.settings.basic",
-       "https://www.googleapis.com/auth/gmail.readonly"
+       "https://www.googleapis.com/auth/gmail.readonly",
+       "https://www.googleapis.com/auth/gmail.labels",
+       "https://www.googleapis.com/auth/gmail.modify"
      ]
    }
    ```
@@ -130,12 +135,18 @@ Runs Vite in watch mode. After each rebuild, go to `chrome://extensions/` and cl
 |---|---|
 | `gmail.settings.basic` | Create, read, delete Gmail filters |
 | `gmail.readonly` | Dry Run preview (search messages matching filter criteria) |
+| `gmail.labels` | Manage Gmail labels for filter actions |
+| `gmail.modify` | Apply filter actions to existing messages |
 
 ## Architecture Notes
 
 - **Message passing**: The side panel communicates with the background service worker via `chrome.runtime.sendMessage`. The content script detects email context in Gmail and relays it through the background to the side panel.
 - **Action format conversion**: The app uses friendly boolean flags (`archive`, `markRead`, `star`, etc.) internally. These are converted to/from Gmail API label operations (`addLabelIds`, `removeLabelIds`) at the API boundary in `gmail-api.ts`.
 - **Folder persistence**: Virtual folders are stored in `chrome.storage.sync` and reconciled against live Gmail filter IDs on each fetch to prevent stale references.
+
+## Documentation
+
+Full usage guide and installation instructions are available at the [FilterFlow documentation site](https://nicosql.github.io/FilterFlow/).
 
 ## License
 
