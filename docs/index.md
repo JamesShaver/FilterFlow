@@ -8,7 +8,7 @@ layout: default
 
 FilterFlow is a Chrome extension that replaces Gmail's clunky filter settings with a drag-and-drop Side Panel — so you can create, organize, and manage filters without ever leaving your inbox.
 
-[Install from Chrome Web Store](#installation){: .btn .btn-blue } &nbsp; [View on GitHub](https://github.com/JamesShaver/FilterFlow){: .btn .btn-blue }
+[Install from Chrome Web Store](#installation) · [View on GitHub](https://github.com/JamesShaver/FilterFlow)
 
 ---
 
