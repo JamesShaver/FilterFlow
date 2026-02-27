@@ -8,7 +8,7 @@ layout: default
 
 FilterFlow is a Chrome extension that replaces Gmail's clunky filter settings with a drag-and-drop Side Panel — so you can create, organize, and manage filters without ever leaving your inbox.
 
-[Install from Chrome Web Store](#installation){: .btn } &nbsp; [View on GitHub](https://github.com/JamesShaver/FilterFlow){: .btn }
+[Install from Chrome Web Store](#installation){: .btn .btn-blue } &nbsp; [View on GitHub](https://github.com/JamesShaver/FilterFlow){: .btn .btn-blue }
 
 ---
 
@@ -41,7 +41,7 @@ Quickly find any filter by typing in the search bar. FilterFlow searches across 
 
 ### From the Chrome Web Store (Recommended)
 
-1. Visit the [FilterFlow listing on the Chrome Web Store](#).
+1. Visit the [FilterFlow listing on the Chrome Web Store](https://chromewebstore.google.com/detail/filterflow/mpejdiknlcdpdhhalcgpckaolkghpbhg).
 2. Click **Add to Chrome**.
 3. Confirm the permissions when prompted.
 4. The FilterFlow icon will appear in your Chrome toolbar — you're ready to go.
