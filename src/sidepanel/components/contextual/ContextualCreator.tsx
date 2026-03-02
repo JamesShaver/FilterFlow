@@ -1,0 +1,73 @@
+import React from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { useEmailContext } from '../../hooks/useEmailContext';
+import { Button } from '../common/Button';
+import { t } from '../../lib/i18n';
+
+interface ContextualCreatorProps {
+  onCreateFilter: (criteria: { from?: string; subject?: string }) => void;
+}
+
+export function ContextualCreator({ onCreateFilter }: ContextualCreatorProps) {
+  const { emailContext, clearContext } = useEmailContext();
+
+  const handleCreate = () => {
+    if (!emailContext) return;
+    onCreateFilter({
+      from: emailContext.sender || undefined,
+      subject: emailContext.subject || undefined,
+    });
+  };
+
+  return (
+    <AnimatePresence>
+      {emailContext && (
+        <motion.div
+          initial={{ height: 0, opacity: 0 }}
+          animate={{ height: 'auto', opacity: 1 }}
+          exit={{ height: 0, opacity: 0 }}
+          transition={{ type: 'spring', stiffness: 500, damping: 30 }}
+          className="overflow-hidden"
+        >
+          <div className="mx-4 mb-3 bg-indigo-50 dark:bg-indigo-900/30 border border-indigo-100 dark:border-indigo-800 rounded-lg p-3">
+            <div className="flex items-start gap-2">
+              <div className="mt-0.5 shrink-0">
+                <svg className="w-4 h-4 text-indigo-600 dark:text-indigo-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="text-xs font-medium text-indigo-900 dark:text-indigo-200 mb-0.5">{t('quickFilter')}</p>
+                {emailContext.sender && (
+                  <p className="text-xs text-indigo-700 dark:text-indigo-300 truncate">
+                    {emailContext.sender}
+                  </p>
+                )}
+                {emailContext.subject && (
+                  <p className="text-xs text-indigo-500 dark:text-indigo-400 truncate">
+                    {emailContext.subject}
+                  </p>
+                )}
+                <div className="flex items-center gap-2 mt-2">
+                  <Button
+                    size="sm"
+                    onClick={handleCreate}
+                  >
+                    {t('createQuickFilter')}
+                  </Button>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    onClick={clearContext}
+                  >
+                    {t('dismiss')}
+                  </Button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </motion.div>
+      )}
+    </AnimatePresence>
+  );
+}

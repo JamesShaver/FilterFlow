@@ -1,0 +1,23 @@
+name: Publish to Web Store
+on:
+  push:
+    tags:
+      - 'v*' # Triggers only when you push a version tag (e.g., v1.0.1)
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      
+      - name: Zip the extension
+        run: zip -r release.zip . -x "*.git*" # Zip everything except git files
+
+      - name: Upload & Publish
+        uses: mnao305/chrome-webstore-upload@v5.0.0
+        with:
+          file-path: release.zip
+          extension-id: ${{ secrets.EXTENSION_ID }}
+          client-id: ${{ secrets.CLIENT_ID }}
+          client-secret: ${{ secrets.CLIENT_SECRET }}
+          refresh-token: ${{ secrets.REFRESH_TOKEN }}

@@ -1,0 +1,734 @@
+{
+  "extName": {
+    "message": "FilterFlow",
+    "description": "Extension name"
+  },
+  "extDescription": {
+    "message": "Manage Gmail filters with drag-and-drop reordering, smart consolidation, dry-run previews, and more.",
+    "description": "Extension description"
+  },
+
+  "signIn": {
+    "message": "Sign in",
+    "description": "Sign in button label"
+  },
+  "signOut": {
+    "message": "Sign out",
+    "description": "Sign out button label"
+  },
+  "needHelp": {
+    "message": "Need Help?",
+    "description": "Help dialog title"
+  },
+  "needHelpAria": {
+    "message": "Need help?",
+    "description": "Help button aria label"
+  },
+  "reportBug": {
+    "message": "Report a Bug",
+    "description": "Help link to report a bug"
+  },
+  "suggestFeature": {
+    "message": "Suggest a Feature",
+    "description": "Help link to suggest a feature"
+  },
+  "newFilter": {
+    "message": "New Filter",
+    "description": "Create new filter button"
+  },
+  "newFolder": {
+    "message": "New Folder",
+    "description": "Create new folder button"
+  },
+  "refreshFilters": {
+    "message": "Refresh filters",
+    "description": "Refresh filters button title"
+  },
+  "uncategorized": {
+    "message": "Uncategorized",
+    "description": "Uncategorized section heading"
+  },
+  "dragToUncategorize": {
+    "message": "Drag filters here to uncategorize",
+    "description": "Hint for uncategorized drop zone"
+  },
+  "welcomeTitle": {
+    "message": "Welcome to FilterFlow",
+    "description": "Welcome empty state title"
+  },
+  "welcomeDescription": {
+    "message": "Sign in with your Google account to manage your Gmail filters with a powerful drag-and-drop interface.",
+    "description": "Welcome empty state description"
+  },
+
+  "createFilter": {
+    "message": "Create Filter",
+    "description": "Create filter form header / submit button"
+  },
+  "criteriaLegend": {
+    "message": "Criteria",
+    "description": "Filter criteria fieldset legend"
+  },
+  "formFrom": {
+    "message": "From",
+    "description": "From field label"
+  },
+  "placeholderSender": {
+    "message": "sender@example.com",
+    "description": "From field placeholder"
+  },
+  "formTo": {
+    "message": "To",
+    "description": "To field label"
+  },
+  "placeholderRecipient": {
+    "message": "recipient@example.com",
+    "description": "To field placeholder"
+  },
+  "formSubject": {
+    "message": "Subject",
+    "description": "Subject field label"
+  },
+  "placeholderSubject": {
+    "message": "Contains words...",
+    "description": "Subject field placeholder"
+  },
+  "formHasWords": {
+    "message": "Has the words",
+    "description": "Has the words field label"
+  },
+  "placeholderQuery": {
+    "message": "Search query...",
+    "description": "Has the words field placeholder"
+  },
+  "hasAttachment": {
+    "message": "Has attachment",
+    "description": "Has attachment checkbox"
+  },
+  "actionsLegend": {
+    "message": "Actions",
+    "description": "Actions fieldset legend"
+  },
+  "actionArchive": {
+    "message": "Skip the Inbox (Archive)",
+    "description": "Archive action checkbox"
+  },
+  "actionMarkRead": {
+    "message": "Mark as read",
+    "description": "Mark as read checkbox"
+  },
+  "actionStar": {
+    "message": "Star it",
+    "description": "Star action checkbox"
+  },
+  "actionDelete": {
+    "message": "Delete it",
+    "description": "Delete/trash action checkbox"
+  },
+  "actionMarkImportant": {
+    "message": "Mark as important",
+    "description": "Mark important checkbox"
+  },
+  "actionNeverSpam": {
+    "message": "Never send to Spam",
+    "description": "Never spam checkbox"
+  },
+  "applyLabel": {
+    "message": "Apply label",
+    "description": "Apply label select label"
+  },
+  "labelNone": {
+    "message": "None",
+    "description": "No label selected option"
+  },
+  "forwardTo": {
+    "message": "Forward to",
+    "description": "Forward to field label"
+  },
+  "placeholderForward": {
+    "message": "forward@example.com",
+    "description": "Forward to field placeholder"
+  },
+  "applyToExisting": {
+    "message": "Also apply to matching conversations",
+    "description": "Checkbox to apply filter to existing messages"
+  },
+  "expirationLegend": {
+    "message": "Expiration",
+    "description": "Expiration fieldset legend"
+  },
+  "autoExpire": {
+    "message": "Auto-expire this filter",
+    "description": "Auto-expire checkbox"
+  },
+  "expiry1Day": {
+    "message": "1 day",
+    "description": "Expiry option 1 day"
+  },
+  "expiry3Days": {
+    "message": "3 days",
+    "description": "Expiry option 3 days"
+  },
+  "expiry1Week": {
+    "message": "1 week",
+    "description": "Expiry option 1 week"
+  },
+  "expiry2Weeks": {
+    "message": "2 weeks",
+    "description": "Expiry option 2 weeks"
+  },
+  "expiry1Month": {
+    "message": "1 month",
+    "description": "Expiry option 1 month"
+  },
+  "expiry3Months": {
+    "message": "3 months",
+    "description": "Expiry option 3 months"
+  },
+  "fromNow": {
+    "message": "from now",
+    "description": "Time qualifier after expiry select"
+  },
+  "cancel": {
+    "message": "Cancel",
+    "description": "Cancel button"
+  },
+
+  "expired": {
+    "message": "Expired",
+    "description": "Filter has expired"
+  },
+  "expiresTomorrow": {
+    "message": "Expires tomorrow",
+    "description": "Filter expires tomorrow"
+  },
+  "expiresInDays": {
+    "message": "Expires in $DAYS$ days",
+    "description": "Filter expires in N days",
+    "placeholders": {
+      "days": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "expiresOnDate": {
+    "message": "Expires $DATE$",
+    "description": "Filter expires on a specific date",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "3/15/2026"
+      }
+    }
+  },
+
+  "noFiltersTitle": {
+    "message": "No filters yet",
+    "description": "Empty filter list title"
+  },
+  "noFiltersDescription": {
+    "message": "Create your first Gmail filter to get started organizing your inbox.",
+    "description": "Empty filter list description"
+  },
+  "createFilterAction": {
+    "message": "Create filter",
+    "description": "Create filter button in empty state"
+  },
+  "orderChanged": {
+    "message": "Order changed",
+    "description": "Label when filter order has changed"
+  },
+  "starting": {
+    "message": "Starting...",
+    "description": "Reorder starting phase"
+  },
+  "saveOrder": {
+    "message": "Save Order",
+    "description": "Save filter order button"
+  },
+  "stepsProgress": {
+    "message": "$COMPLETED$ / $TOTAL$ steps",
+    "description": "Reorder progress counter",
+    "placeholders": {
+      "completed": {
+        "content": "$1",
+        "example": "3"
+      },
+      "total": {
+        "content": "$2",
+        "example": "10"
+      }
+    }
+  },
+
+  "editFilter": {
+    "message": "Edit filter",
+    "description": "Edit filter button title"
+  },
+  "delete": {
+    "message": "Delete",
+    "description": "Delete button label"
+  },
+  "deleteFilter": {
+    "message": "Delete filter",
+    "description": "Delete filter button title"
+  },
+
+  "dryRunPreview": {
+    "message": "Dry Run Preview",
+    "description": "Dry run preview section label"
+  },
+  "matchingEmails": {
+    "message": "$COUNT$ matching email$SUFFIX$:",
+    "description": "Matching emails count",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      },
+      "suffix": {
+        "content": "$2",
+        "example": "s"
+      }
+    }
+  },
+  "noMatchingEmails": {
+    "message": "No matching emails found",
+    "description": "No matching emails in dry run"
+  },
+
+  "suggestionsCount": {
+    "message": "$COUNT$ suggestion$SUFFIX$ to clean up filters",
+    "description": "Consolidation bar summary",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "suffix": {
+        "content": "$2",
+        "example": "s"
+      }
+    }
+  },
+  "consolidate": {
+    "message": "Consolidate",
+    "description": "Consolidate button"
+  },
+  "filtersAllLabel": {
+    "message": "$COUNT$ filters all label \"$LABEL$\"",
+    "description": "Consolidation group description",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "4"
+      },
+      "label": {
+        "content": "$2",
+        "example": "Newsletters"
+      }
+    }
+  },
+  "review": {
+    "message": "Review",
+    "description": "Review duplicates button"
+  },
+  "filtersMatchKey": {
+    "message": "$COUNT$ filters match $KEY$",
+    "description": "Duplicate group description",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "key": {
+        "content": "$2",
+        "example": "from:user@example.com"
+      }
+    }
+  },
+
+  "consolidateFilters": {
+    "message": "Consolidate Filters",
+    "description": "Consolidate dialog title"
+  },
+  "consolidateAllMerge": {
+    "message": "All $COUNT$ filters can be merged into one.",
+    "description": "All filters in group can merge",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "consolidateMergeGroups": {
+    "message": "These filters can be merged into $COUNT$ groups based on their criteria patterns.",
+    "description": "Filters can be merged into groups",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "consolidateMixed": {
+    "message": "$MERGEABLE$ filters can be merged into $GROUPS$ $GROUPWORD$. $REMAINING$ $FILTERWORD$ a different pattern and can't be auto-merged.",
+    "description": "Mixed merge and remaining",
+    "placeholders": {
+      "mergeable": {
+        "content": "$1",
+        "example": "4"
+      },
+      "groups": {
+        "content": "$2",
+        "example": "2"
+      },
+      "groupword": {
+        "content": "$3",
+        "example": "groups"
+      },
+      "remaining": {
+        "content": "$4",
+        "example": "2"
+      },
+      "filterword": {
+        "content": "$5",
+        "example": "filters have"
+      }
+    }
+  },
+  "consolidateNoMerge": {
+    "message": "These filters use different criteria patterns and can't be auto-merged, but you can delete the ones you don't need.",
+    "description": "No filters can be auto-merged"
+  },
+  "consolidatePrefix": {
+    "message": "These $COUNT$ filters all apply the label \"$LABEL$\".",
+    "description": "Consolidation dialog prefix text",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      },
+      "label": {
+        "content": "$2",
+        "example": "Newsletters"
+      }
+    }
+  },
+  "mergeFilters": {
+    "message": "Merge $COUNT$ filters",
+    "description": "Merge N filters label",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "4"
+      }
+    }
+  },
+  "groupLabel": {
+    "message": "Group $INDEX$: $COUNT$ filters",
+    "description": "Sub-group label",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "1"
+      },
+      "count": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "mergedResult": {
+    "message": "Merged Result",
+    "description": "Merged result preview heading"
+  },
+  "labelPrefix": {
+    "message": "Label: $NAME$",
+    "description": "Label badge prefix",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Newsletters"
+      }
+    }
+  },
+  "remainingFilters": {
+    "message": "Remaining Filters",
+    "description": "Remaining filters section heading"
+  },
+  "currentFilters": {
+    "message": "Current Filters",
+    "description": "Current filters section heading when no subgroups"
+  },
+  "keep": {
+    "message": "Keep",
+    "description": "Keep button label"
+  },
+
+  "reviewDuplicates": {
+    "message": "Review Duplicates",
+    "description": "Duplicate review dialog title"
+  },
+  "duplicateDescription": {
+    "message": "$COUNT$ filters share the same $REASON$ ($KEY$). Select which ones to delete.",
+    "description": "Duplicate review description",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "reason": {
+        "content": "$2",
+        "example": "sender"
+      },
+      "key": {
+        "content": "$3",
+        "example": "user@example.com"
+      }
+    }
+  },
+  "deleteNFilters": {
+    "message": "Delete $COUNT$ filter$SUFFIX$",
+    "description": "Delete N filters button",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "suffix": {
+        "content": "$2",
+        "example": "s"
+      }
+    }
+  },
+
+  "createFolderTitle": {
+    "message": "Create Folder",
+    "description": "Create folder dialog title"
+  },
+  "editFolderTitle": {
+    "message": "Edit Folder",
+    "description": "Edit folder dialog title"
+  },
+  "folderName": {
+    "message": "Name",
+    "description": "Folder name label"
+  },
+  "placeholderFolderName": {
+    "message": "e.g., Newsletters",
+    "description": "Folder name placeholder"
+  },
+  "folderColor": {
+    "message": "Color",
+    "description": "Folder color label"
+  },
+  "removeFolderFiltersFirst": {
+    "message": "Remove all filters from this folder first",
+    "description": "Delete disabled folder tooltip"
+  },
+  "deleteFolderTitle": {
+    "message": "Delete folder",
+    "description": "Delete folder button title"
+  },
+  "saveChanges": {
+    "message": "Save Changes",
+    "description": "Save changes button"
+  },
+  "create": {
+    "message": "Create",
+    "description": "Create button"
+  },
+
+  "editFolderButton": {
+    "message": "Edit folder",
+    "description": "Edit folder button title"
+  },
+  "dragFiltersHere": {
+    "message": "Drag filters here",
+    "description": "Empty folder drop hint"
+  },
+
+  "foldersHeading": {
+    "message": "Folders",
+    "description": "Folders section heading"
+  },
+  "addFolder": {
+    "message": "Add",
+    "description": "Add folder button"
+  },
+
+  "quickFilter": {
+    "message": "Quick Filter",
+    "description": "Contextual creator banner label"
+  },
+  "filterSender": {
+    "message": "Filter sender",
+    "description": "Filter sender button"
+  },
+  "createQuickFilter": {
+    "message": "Create Filter",
+    "description": "Quick filter create button that opens form with pre-filled criteria"
+  },
+  "dismiss": {
+    "message": "Dismiss",
+    "description": "Dismiss button"
+  },
+
+  "toastSignInSuccess": {
+    "message": "Signed in successfully",
+    "description": "Sign in success toast"
+  },
+  "toastSignInFailed": {
+    "message": "Sign in failed: $ERROR$",
+    "description": "Sign in failed toast",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "User cancelled"
+      }
+    }
+  },
+  "toastSignedOut": {
+    "message": "Signed out",
+    "description": "Signed out toast"
+  },
+  "toastLoadFiltersFailed": {
+    "message": "Failed to load filters",
+    "description": "Load filters failed toast"
+  },
+  "toastFilterCreated": {
+    "message": "Filter created",
+    "description": "Filter created toast"
+  },
+  "toastCreateFilterFailed": {
+    "message": "Failed to create filter",
+    "description": "Create filter failed toast"
+  },
+  "toastFilterDeleted": {
+    "message": "Filter deleted",
+    "description": "Filter deleted toast"
+  },
+  "toastDeleteFilterFailed": {
+    "message": "Failed to delete filter",
+    "description": "Delete filter failed toast"
+  },
+  "toastConsolidated": {
+    "message": "Consolidated $COUNT$ filters into $GROUPS$",
+    "description": "Consolidation success toast",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "4"
+      },
+      "groups": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "toastDeletedCount": {
+    "message": "Deleted $COUNT$ filter(s)",
+    "description": "Batch deletion count toast",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "toastOrderSaved": {
+    "message": "Filter order saved",
+    "description": "Order saved toast"
+  },
+  "toastSaveOrderFailed": {
+    "message": "Failed to save order",
+    "description": "Save order failed toast"
+  },
+  "toastFolderCreated": {
+    "message": "Folder \"$NAME$\" created",
+    "description": "Folder created toast",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Newsletters"
+      }
+    }
+  },
+  "toastFolderDeleted": {
+    "message": "Folder deleted",
+    "description": "Folder deleted toast"
+  },
+
+  "progressDeleting": {
+    "message": "Deleting filters...",
+    "description": "Reorder progress - deleting phase"
+  },
+  "progressRecreating": {
+    "message": "Recreating filters...",
+    "description": "Reorder progress - recreating phase"
+  },
+  "errorNoAuthToken": {
+    "message": "No auth token received",
+    "description": "Auth error when no token"
+  },
+  "errorUnknown": {
+    "message": "Unknown error",
+    "description": "Fallback error message"
+  },
+  "errorUnknownMessageType": {
+    "message": "Unknown message type",
+    "description": "Unknown message type error"
+  },
+  "errorNoActions": {
+    "message": "Please select at least one action for the filter",
+    "description": "Error when creating a filter without any actions"
+  },
+  "errorGmailApi": {
+    "message": "Gmail API error: $STATUS$",
+    "description": "Gmail API error with status code",
+    "placeholders": {
+      "status": {
+        "content": "$1",
+        "example": "403"
+      }
+    }
+  },
+
+  "validationActionRequired": {
+    "message": "Please select at least one action",
+    "description": "Validation error when no filter action is selected"
+  },
+  "createNewLabel": {
+    "message": "Create new label...",
+    "description": "Option to create a new label in the label dropdown"
+  },
+  "newLabelName": {
+    "message": "Label name",
+    "description": "Placeholder for new label name input"
+  },
+  "toastLabelCreated": {
+    "message": "Label \"$NAME$\" created",
+    "description": "Toast when label is created",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Newsletters"
+      }
+    }
+  },
+  "toastCreateLabelFailed": {
+    "message": "Failed to create label",
+    "description": "Toast when label creation fails"
+  },
+  "folderIcon": {
+    "message": "Icon",
+    "description": "Folder icon picker label"
+  },
+  "searchFilters": {
+    "message": "Search filters...",
+    "description": "Search input placeholder in header"
+  }
+}

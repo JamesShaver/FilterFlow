@@ -1,0 +1,734 @@
+{
+  "extName": {
+    "message": "FilterFlow",
+    "description": "Nombre de la extensión"
+  },
+  "extDescription": {
+    "message": "Administra filtros de Gmail con arrastrar y soltar, consolidación inteligente, vistas previas y más.",
+    "description": "Descripción de la extensión"
+  },
+
+  "signIn": {
+    "message": "Iniciar sesión",
+    "description": "Etiqueta del botón de inicio de sesión"
+  },
+  "signOut": {
+    "message": "Cerrar sesión",
+    "description": "Etiqueta del botón de cierre de sesión"
+  },
+  "needHelp": {
+    "message": "¿Necesitas ayuda?",
+    "description": "Título del diálogo de ayuda"
+  },
+  "needHelpAria": {
+    "message": "¿Necesitas ayuda?",
+    "description": "Etiqueta aria del botón de ayuda"
+  },
+  "reportBug": {
+    "message": "Reportar un error",
+    "description": "Enlace de ayuda para reportar un error"
+  },
+  "suggestFeature": {
+    "message": "Sugerir una función",
+    "description": "Enlace de ayuda para sugerir una función"
+  },
+  "newFilter": {
+    "message": "Nuevo filtro",
+    "description": "Botón para crear un nuevo filtro"
+  },
+  "newFolder": {
+    "message": "Nueva carpeta",
+    "description": "Botón para crear una nueva carpeta"
+  },
+  "refreshFilters": {
+    "message": "Actualizar filtros",
+    "description": "Título del botón para actualizar filtros"
+  },
+  "uncategorized": {
+    "message": "Sin categoría",
+    "description": "Encabezado de la sección sin categoría"
+  },
+  "dragToUncategorize": {
+    "message": "Arrastra filtros aquí para quitarles la categoría",
+    "description": "Sugerencia para la zona de soltar sin categoría"
+  },
+  "welcomeTitle": {
+    "message": "Bienvenido a FilterFlow",
+    "description": "Título del estado vacío de bienvenida"
+  },
+  "welcomeDescription": {
+    "message": "Inicia sesión con tu cuenta de Google para administrar tus filtros de Gmail con una potente interfaz de arrastrar y soltar.",
+    "description": "Descripción del estado vacío de bienvenida"
+  },
+
+  "createFilter": {
+    "message": "Crear filtro",
+    "description": "Encabezado del formulario / botón de envío para crear filtro"
+  },
+  "criteriaLegend": {
+    "message": "Criterios",
+    "description": "Leyenda del conjunto de campos de criterios del filtro"
+  },
+  "formFrom": {
+    "message": "De",
+    "description": "Etiqueta del campo De"
+  },
+  "placeholderSender": {
+    "message": "remitente@ejemplo.com",
+    "description": "Marcador de posición del campo De"
+  },
+  "formTo": {
+    "message": "Para",
+    "description": "Etiqueta del campo Para"
+  },
+  "placeholderRecipient": {
+    "message": "destinatario@ejemplo.com",
+    "description": "Marcador de posición del campo Para"
+  },
+  "formSubject": {
+    "message": "Asunto",
+    "description": "Etiqueta del campo Asunto"
+  },
+  "placeholderSubject": {
+    "message": "Contiene palabras...",
+    "description": "Marcador de posición del campo Asunto"
+  },
+  "formHasWords": {
+    "message": "Tiene las palabras",
+    "description": "Etiqueta del campo Tiene las palabras"
+  },
+  "placeholderQuery": {
+    "message": "Consulta de búsqueda...",
+    "description": "Marcador de posición del campo Tiene las palabras"
+  },
+  "hasAttachment": {
+    "message": "Tiene archivo adjunto",
+    "description": "Casilla de verificación Tiene archivo adjunto"
+  },
+  "actionsLegend": {
+    "message": "Acciones",
+    "description": "Leyenda del conjunto de campos de acciones"
+  },
+  "actionArchive": {
+    "message": "Omitir la bandeja de entrada (Archivar)",
+    "description": "Casilla de verificación de acción Archivar"
+  },
+  "actionMarkRead": {
+    "message": "Marcar como leído",
+    "description": "Casilla de verificación Marcar como leído"
+  },
+  "actionStar": {
+    "message": "Destacar con estrella",
+    "description": "Casilla de verificación de acción Destacar"
+  },
+  "actionDelete": {
+    "message": "Eliminar",
+    "description": "Casilla de verificación de acción Eliminar/papelera"
+  },
+  "actionMarkImportant": {
+    "message": "Marcar como importante",
+    "description": "Casilla de verificación Marcar como importante"
+  },
+  "actionNeverSpam": {
+    "message": "Nunca enviar a Spam",
+    "description": "Casilla de verificación Nunca spam"
+  },
+  "applyLabel": {
+    "message": "Aplicar etiqueta",
+    "description": "Etiqueta del selector Aplicar etiqueta"
+  },
+  "labelNone": {
+    "message": "Ninguna",
+    "description": "Opción sin etiqueta seleccionada"
+  },
+  "forwardTo": {
+    "message": "Reenviar a",
+    "description": "Etiqueta del campo Reenviar a"
+  },
+  "placeholderForward": {
+    "message": "reenviar@ejemplo.com",
+    "description": "Marcador de posición del campo Reenviar a"
+  },
+  "applyToExisting": {
+    "message": "Aplicar también a conversaciones existentes",
+    "description": "Casilla para aplicar filtro a mensajes existentes"
+  },
+  "expirationLegend": {
+    "message": "Vencimiento",
+    "description": "Leyenda del conjunto de campos de vencimiento"
+  },
+  "autoExpire": {
+    "message": "Expirar este filtro automáticamente",
+    "description": "Casilla de verificación Expirar automáticamente"
+  },
+  "expiry1Day": {
+    "message": "1 día",
+    "description": "Opción de vencimiento 1 día"
+  },
+  "expiry3Days": {
+    "message": "3 días",
+    "description": "Opción de vencimiento 3 días"
+  },
+  "expiry1Week": {
+    "message": "1 semana",
+    "description": "Opción de vencimiento 1 semana"
+  },
+  "expiry2Weeks": {
+    "message": "2 semanas",
+    "description": "Opción de vencimiento 2 semanas"
+  },
+  "expiry1Month": {
+    "message": "1 mes",
+    "description": "Opción de vencimiento 1 mes"
+  },
+  "expiry3Months": {
+    "message": "3 meses",
+    "description": "Opción de vencimiento 3 meses"
+  },
+  "fromNow": {
+    "message": "a partir de ahora",
+    "description": "Calificador de tiempo después del selector de vencimiento"
+  },
+  "cancel": {
+    "message": "Cancelar",
+    "description": "Botón Cancelar"
+  },
+
+  "expired": {
+    "message": "Vencido",
+    "description": "El filtro ha vencido"
+  },
+  "expiresTomorrow": {
+    "message": "Vence mañana",
+    "description": "El filtro vence mañana"
+  },
+  "expiresInDays": {
+    "message": "Vence en $DAYS$ días",
+    "description": "El filtro vence en N días",
+    "placeholders": {
+      "days": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "expiresOnDate": {
+    "message": "Vence el $DATE$",
+    "description": "El filtro vence en una fecha específica",
+    "placeholders": {
+      "date": {
+        "content": "$1",
+        "example": "3/15/2026"
+      }
+    }
+  },
+
+  "noFiltersTitle": {
+    "message": "Aún no hay filtros",
+    "description": "Título de la lista de filtros vacía"
+  },
+  "noFiltersDescription": {
+    "message": "Crea tu primer filtro de Gmail para comenzar a organizar tu bandeja de entrada.",
+    "description": "Descripción de la lista de filtros vacía"
+  },
+  "createFilterAction": {
+    "message": "Crear filtro",
+    "description": "Botón Crear filtro en estado vacío"
+  },
+  "orderChanged": {
+    "message": "Orden modificado",
+    "description": "Etiqueta cuando el orden del filtro ha cambiado"
+  },
+  "starting": {
+    "message": "Iniciando...",
+    "description": "Fase de inicio del reordenamiento"
+  },
+  "saveOrder": {
+    "message": "Guardar orden",
+    "description": "Botón para guardar el orden de los filtros"
+  },
+  "stepsProgress": {
+    "message": "$COMPLETED$ / $TOTAL$ pasos",
+    "description": "Contador de progreso del reordenamiento",
+    "placeholders": {
+      "completed": {
+        "content": "$1",
+        "example": "3"
+      },
+      "total": {
+        "content": "$2",
+        "example": "10"
+      }
+    }
+  },
+
+  "editFilter": {
+    "message": "Editar filtro",
+    "description": "Título del botón Editar filtro"
+  },
+  "delete": {
+    "message": "Eliminar",
+    "description": "Etiqueta del botón Eliminar"
+  },
+  "deleteFilter": {
+    "message": "Eliminar filtro",
+    "description": "Título del botón Eliminar filtro"
+  },
+
+  "dryRunPreview": {
+    "message": "Vista previa de simulación",
+    "description": "Etiqueta de la sección de vista previa de simulación"
+  },
+  "matchingEmails": {
+    "message": "$COUNT$ correo$SUFFIX$ coincidente$SUFFIX$:",
+    "description": "Cantidad de correos coincidentes",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      },
+      "suffix": {
+        "content": "$2",
+        "example": "s"
+      }
+    }
+  },
+  "noMatchingEmails": {
+    "message": "No se encontraron correos coincidentes",
+    "description": "Sin correos coincidentes en la simulación"
+  },
+
+  "suggestionsCount": {
+    "message": "$COUNT$ sugerencia$SUFFIX$ para limpiar filtros",
+    "description": "Resumen de la barra de consolidación",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "suffix": {
+        "content": "$2",
+        "example": "s"
+      }
+    }
+  },
+  "consolidate": {
+    "message": "Consolidar",
+    "description": "Botón Consolidar"
+  },
+  "filtersAllLabel": {
+    "message": "$COUNT$ filtros todos con etiqueta \"$LABEL$\"",
+    "description": "Descripción del grupo de consolidación",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "4"
+      },
+      "label": {
+        "content": "$2",
+        "example": "Boletines"
+      }
+    }
+  },
+  "review": {
+    "message": "Revisar",
+    "description": "Botón para revisar duplicados"
+  },
+  "filtersMatchKey": {
+    "message": "$COUNT$ filtros coinciden con $KEY$",
+    "description": "Descripción del grupo de duplicados",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "key": {
+        "content": "$2",
+        "example": "from:user@example.com"
+      }
+    }
+  },
+
+  "consolidateFilters": {
+    "message": "Consolidar filtros",
+    "description": "Título del diálogo de consolidación"
+  },
+  "consolidateAllMerge": {
+    "message": "Los $COUNT$ filtros se pueden fusionar en uno.",
+    "description": "Todos los filtros del grupo se pueden fusionar",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      }
+    }
+  },
+  "consolidateMergeGroups": {
+    "message": "Estos filtros se pueden fusionar en $COUNT$ grupos según sus patrones de criterios.",
+    "description": "Los filtros se pueden fusionar en grupos",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "consolidateMixed": {
+    "message": "$MERGEABLE$ filtros se pueden fusionar en $GROUPS$ $GROUPWORD$. $REMAINING$ $FILTERWORD$ un patrón diferente y no se pueden fusionar automáticamente.",
+    "description": "Mezcla de fusionables y restantes",
+    "placeholders": {
+      "mergeable": {
+        "content": "$1",
+        "example": "4"
+      },
+      "groups": {
+        "content": "$2",
+        "example": "2"
+      },
+      "groupword": {
+        "content": "$3",
+        "example": "grupos"
+      },
+      "remaining": {
+        "content": "$4",
+        "example": "2"
+      },
+      "filterword": {
+        "content": "$5",
+        "example": "filtros tienen"
+      }
+    }
+  },
+  "consolidateNoMerge": {
+    "message": "Estos filtros usan patrones de criterios diferentes y no se pueden fusionar automáticamente, pero puedes eliminar los que no necesites.",
+    "description": "Ningún filtro se puede fusionar automáticamente"
+  },
+  "consolidatePrefix": {
+    "message": "Estos $COUNT$ filtros aplican la etiqueta \"$LABEL$\".",
+    "description": "Texto de prefijo del diálogo de consolidación",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "5"
+      },
+      "label": {
+        "content": "$2",
+        "example": "Boletines"
+      }
+    }
+  },
+  "mergeFilters": {
+    "message": "Fusionar $COUNT$ filtros",
+    "description": "Etiqueta para fusionar N filtros",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "4"
+      }
+    }
+  },
+  "groupLabel": {
+    "message": "Grupo $INDEX$: $COUNT$ filtros",
+    "description": "Etiqueta de subgrupo",
+    "placeholders": {
+      "index": {
+        "content": "$1",
+        "example": "1"
+      },
+      "count": {
+        "content": "$2",
+        "example": "3"
+      }
+    }
+  },
+  "mergedResult": {
+    "message": "Resultado fusionado",
+    "description": "Encabezado de vista previa del resultado fusionado"
+  },
+  "labelPrefix": {
+    "message": "Etiqueta: $NAME$",
+    "description": "Prefijo de insignia de etiqueta",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Boletines"
+      }
+    }
+  },
+  "remainingFilters": {
+    "message": "Filtros restantes",
+    "description": "Encabezado de la sección de filtros restantes"
+  },
+  "currentFilters": {
+    "message": "Filtros actuales",
+    "description": "Encabezado de la sección de filtros actuales cuando no hay subgrupos"
+  },
+  "keep": {
+    "message": "Conservar",
+    "description": "Etiqueta del botón Conservar"
+  },
+
+  "reviewDuplicates": {
+    "message": "Revisar duplicados",
+    "description": "Título del diálogo de revisión de duplicados"
+  },
+  "duplicateDescription": {
+    "message": "$COUNT$ filtros comparten el mismo $REASON$ ($KEY$). Selecciona cuáles eliminar.",
+    "description": "Descripción de la revisión de duplicados",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "3"
+      },
+      "reason": {
+        "content": "$2",
+        "example": "remitente"
+      },
+      "key": {
+        "content": "$3",
+        "example": "user@example.com"
+      }
+    }
+  },
+  "deleteNFilters": {
+    "message": "Eliminar $COUNT$ filtro$SUFFIX$",
+    "description": "Botón Eliminar N filtros",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      },
+      "suffix": {
+        "content": "$2",
+        "example": "s"
+      }
+    }
+  },
+
+  "createFolderTitle": {
+    "message": "Crear carpeta",
+    "description": "Título del diálogo Crear carpeta"
+  },
+  "editFolderTitle": {
+    "message": "Editar carpeta",
+    "description": "Título del diálogo Editar carpeta"
+  },
+  "folderName": {
+    "message": "Nombre",
+    "description": "Etiqueta del nombre de la carpeta"
+  },
+  "placeholderFolderName": {
+    "message": "p. ej., Boletines",
+    "description": "Marcador de posición del nombre de la carpeta"
+  },
+  "folderColor": {
+    "message": "Color",
+    "description": "Etiqueta del color de la carpeta"
+  },
+  "removeFolderFiltersFirst": {
+    "message": "Primero elimina todos los filtros de esta carpeta",
+    "description": "Información sobre herramienta del botón Eliminar carpeta deshabilitado"
+  },
+  "deleteFolderTitle": {
+    "message": "Eliminar carpeta",
+    "description": "Título del botón Eliminar carpeta"
+  },
+  "saveChanges": {
+    "message": "Guardar cambios",
+    "description": "Botón Guardar cambios"
+  },
+  "create": {
+    "message": "Crear",
+    "description": "Botón Crear"
+  },
+
+  "editFolderButton": {
+    "message": "Editar carpeta",
+    "description": "Título del botón Editar carpeta"
+  },
+  "dragFiltersHere": {
+    "message": "Arrastra filtros aquí",
+    "description": "Sugerencia para soltar en carpeta vacía"
+  },
+
+  "foldersHeading": {
+    "message": "Carpetas",
+    "description": "Encabezado de la sección de carpetas"
+  },
+  "addFolder": {
+    "message": "Agregar",
+    "description": "Botón Agregar carpeta"
+  },
+
+  "quickFilter": {
+    "message": "Filtro rápido",
+    "description": "Etiqueta del banner del creador contextual"
+  },
+  "filterSender": {
+    "message": "Filtrar remitente",
+    "description": "Botón Filtrar remitente"
+  },
+  "createQuickFilter": {
+    "message": "Crear Filtro",
+    "description": "Botón de filtro rápido que abre el formulario con criterios prellenados"
+  },
+  "dismiss": {
+    "message": "Descartar",
+    "description": "Botón Descartar"
+  },
+
+  "toastSignInSuccess": {
+    "message": "Sesión iniciada correctamente",
+    "description": "Notificación de inicio de sesión exitoso"
+  },
+  "toastSignInFailed": {
+    "message": "Error al iniciar sesión: $ERROR$",
+    "description": "Notificación de error al iniciar sesión",
+    "placeholders": {
+      "error": {
+        "content": "$1",
+        "example": "El usuario canceló"
+      }
+    }
+  },
+  "toastSignedOut": {
+    "message": "Sesión cerrada",
+    "description": "Notificación de sesión cerrada"
+  },
+  "toastLoadFiltersFailed": {
+    "message": "Error al cargar los filtros",
+    "description": "Notificación de error al cargar filtros"
+  },
+  "toastFilterCreated": {
+    "message": "Filtro creado",
+    "description": "Notificación de filtro creado"
+  },
+  "toastCreateFilterFailed": {
+    "message": "Error al crear el filtro",
+    "description": "Notificación de error al crear filtro"
+  },
+  "toastFilterDeleted": {
+    "message": "Filtro eliminado",
+    "description": "Notificación de filtro eliminado"
+  },
+  "toastDeleteFilterFailed": {
+    "message": "Error al eliminar el filtro",
+    "description": "Notificación de error al eliminar filtro"
+  },
+  "toastConsolidated": {
+    "message": "$COUNT$ filtros consolidados en $GROUPS$",
+    "description": "Notificación de consolidación exitosa",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "4"
+      },
+      "groups": {
+        "content": "$2",
+        "example": "1"
+      }
+    }
+  },
+  "toastDeletedCount": {
+    "message": "$COUNT$ filtro(s) eliminado(s)",
+    "description": "Notificación de eliminación por lotes",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "2"
+      }
+    }
+  },
+  "toastOrderSaved": {
+    "message": "Orden de filtros guardado",
+    "description": "Notificación de orden guardado"
+  },
+  "toastSaveOrderFailed": {
+    "message": "Error al guardar el orden",
+    "description": "Notificación de error al guardar orden"
+  },
+  "toastFolderCreated": {
+    "message": "Carpeta \"$NAME$\" creada",
+    "description": "Notificación de carpeta creada",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Boletines"
+      }
+    }
+  },
+  "toastFolderDeleted": {
+    "message": "Carpeta eliminada",
+    "description": "Notificación de carpeta eliminada"
+  },
+
+  "progressDeleting": {
+    "message": "Eliminando filtros...",
+    "description": "Progreso del reordenamiento - fase de eliminación"
+  },
+  "progressRecreating": {
+    "message": "Recreando filtros...",
+    "description": "Progreso del reordenamiento - fase de recreación"
+  },
+  "errorNoAuthToken": {
+    "message": "No se recibió ningún token de autenticación",
+    "description": "Error de autenticación cuando no hay token"
+  },
+  "errorUnknown": {
+    "message": "Error desconocido",
+    "description": "Mensaje de error alternativo"
+  },
+  "errorUnknownMessageType": {
+    "message": "Tipo de mensaje desconocido",
+    "description": "Error de tipo de mensaje desconocido"
+  },
+  "errorNoActions": {
+    "message": "Por favor selecciona al menos una acción para el filtro",
+    "description": "Error al crear un filtro sin acciones"
+  },
+  "errorGmailApi": {
+    "message": "Error de la API de Gmail: $STATUS$",
+    "description": "Error de la API de Gmail con código de estado",
+    "placeholders": {
+      "status": {
+        "content": "$1",
+        "example": "403"
+      }
+    }
+  },
+
+  "validationActionRequired": {
+    "message": "Por favor selecciona al menos una acción",
+    "description": "Error de validación cuando no se selecciona ninguna acción de filtro"
+  },
+  "createNewLabel": {
+    "message": "Crear nueva etiqueta...",
+    "description": "Opción para crear una nueva etiqueta en el selector de etiquetas"
+  },
+  "newLabelName": {
+    "message": "Nombre de la etiqueta",
+    "description": "Marcador de posición para el nombre de la nueva etiqueta"
+  },
+  "toastLabelCreated": {
+    "message": "Etiqueta \"$NAME$\" creada",
+    "description": "Notificación cuando se crea una etiqueta",
+    "placeholders": {
+      "name": {
+        "content": "$1",
+        "example": "Boletines"
+      }
+    }
+  },
+  "toastCreateLabelFailed": {
+    "message": "Error al crear la etiqueta",
+    "description": "Notificación de error al crear etiqueta"
+  },
+  "folderIcon": {
+    "message": "Icono",
+    "description": "Etiqueta del selector de icono de carpeta"
+  },
+  "searchFilters": {
+    "message": "Buscar filtros...",
+    "description": "Marcador de posición del campo de búsqueda en el encabezado"
+  }
+}
