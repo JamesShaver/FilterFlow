@@ -1,5 +1,5 @@
 name: Publish to Web Store
-permissions: 
+permissions:
   contents: read
 on:
   push:
