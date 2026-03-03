@@ -159,6 +159,13 @@ A: Try these steps:
 3. Sign out and sign back in to refresh your authentication token.
 4. If the issue persists, [open a bug report](https://github.com/JamesShaver/FilterFlow/issues).
 
+**Q: How does auto-expiring filters work?**
+A: When you create a filter with an expiry duration, FilterFlow saves the expiration date locally in Chrome. A background task runs once every 24 hours to check for expired filters and delete them from your Gmail account via the API. There are a few things to keep in mind:
+
+- **Chrome must be running.** The expiration check only happens while Chrome is open. If your computer is off or Chrome is closed, the check resumes the next time Chrome starts — so a filter may live slightly longer than the duration you chose.
+- **FilterFlow must be installed.** If you uninstall the extension, expiry tracking data is removed and any filters you set to auto-expire will remain in your Gmail account permanently.
+- **Filters are real Gmail filters.** Gmail itself has no concept of filter expiration. Auto-expire is managed entirely by FilterFlow, so the extension needs to be installed and Chrome needs to be running for it to work.
+
 **Q: How do I report a bug or request a feature?**
 A: Visit the [GitHub Issues page](https://github.com/JamesShaver/FilterFlow/issues) to submit a bug report or feature request.
 
