@@ -5,6 +5,7 @@ on:
   push:
     tags:
       - 'v*' # Triggers only when you push a version tag (e.g., v1.0.1)
+  workflow_dispatch: # This line enables the manual button in the Actions tab to trigger the workflow
 
 jobs:
   upload:
