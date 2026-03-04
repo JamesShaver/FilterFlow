@@ -20,16 +20,13 @@ jobs:
           node-version: '20' # Use the version you develop with
           cache: 'npm'
 
-      - name: Install Dependencies
-        run: npm ci # Faster and more reliable for CI than 'npm install'
+      - name: Install and Build
+        run: |
+          npm ci
+          npm run build
 
-      - name: Build Extension
-        run: npm run build
-
-      - name: Prepare Package
-        # Copy manifest to dist and zip the contents of dist
-        run: |          
-          cp manifest.json dist/ 
+      - name: Zip Build Output
+        run: |
           cd dist
           zip -r ../release.zip .
           
@@ -37,6 +34,7 @@ jobs:
         run: |
           echo "Checking zip structure..."
           unzip -l release.zip | head -n 10
+          
       - name: Upload & Publish
         uses: mnao305/chrome-extension-upload@v5.0.0
         with:
