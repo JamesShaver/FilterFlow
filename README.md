@@ -26,6 +26,9 @@ Set a filter to automatically delete itself after a configurable period (1 day t
 ### Filter Search
 Quickly find any filter by typing in the search bar. Searches across all criteria and actions to surface matching filters instantly.
 
+### VIP "Rescue" & Protection
+Designate important senders as VIP to rescue buried emails and protect against future filter mishaps. One click creates a protective `neverSpam` filter, moves archived/trashed messages back to the inbox, and adjusts any existing filters that would hide the sender's emails. Supports up to 50 VIP contacts, with crash-recoverable operations and cross-reference validation.
+
 ## Tech Stack
 
 | Layer | Technology |

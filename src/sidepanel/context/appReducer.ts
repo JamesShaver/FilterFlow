@@ -1,5 +1,5 @@
 import type { GmailFilter, GmailLabel } from '@shared/types/gmail';
-import type { VirtualFolder, TemporalFilterMeta } from '@shared/types/storage';
+import type { VirtualFolder, TemporalFilterMeta, VipContact } from '@shared/types/storage';
 
 export interface AppState {
   isAuthenticated: boolean;
@@ -10,6 +10,7 @@ export interface AppState {
   temporalFilters: TemporalFilterMeta[];
   filterOrder: string[];
   emailContext: { sender: string; subject: string } | null;
+  vipContacts: VipContact[];
   searchQuery: string;
   error: string | null;
   toast: { message: string; type: 'success' | 'error' | 'info' } | null;
@@ -26,6 +27,7 @@ export type AppAction =
   | { type: 'SET_TEMPORAL_FILTERS'; payload: TemporalFilterMeta[] }
   | { type: 'SET_FILTER_ORDER'; payload: string[] }
   | { type: 'SET_EMAIL_CONTEXT'; payload: { sender: string; subject: string } | null }
+  | { type: 'SET_VIP_CONTACTS'; payload: VipContact[] }
   | { type: 'SET_SEARCH_QUERY'; payload: string }
   | { type: 'SET_ERROR'; payload: string | null }
   | { type: 'SHOW_TOAST'; payload: { message: string; type: 'success' | 'error' | 'info' } }
@@ -39,6 +41,7 @@ export const initialState: AppState = {
   folders: [],
   temporalFilters: [],
   filterOrder: [],
+  vipContacts: [],
   emailContext: null,
   searchQuery: '',
   error: null,
@@ -72,6 +75,8 @@ export function appReducer(state: AppState, action: AppAction): AppState {
       return { ...state, temporalFilters: action.payload };
     case 'SET_FILTER_ORDER':
       return { ...state, filterOrder: action.payload };
+    case 'SET_VIP_CONTACTS':
+      return { ...state, vipContacts: action.payload };
     case 'SET_EMAIL_CONTEXT':
       return { ...state, emailContext: action.payload };
     case 'SET_SEARCH_QUERY':

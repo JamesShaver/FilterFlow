@@ -1,6 +1,7 @@
 import type { BackgroundMessage, MessageResponse } from '@shared/types/messages';
 import { getAuthToken, signOut } from './auth';
 import { listFilters, createFilter, deleteFilter, searchMessages, searchMessageIds, batchModifyMessages, actionToApi, listLabels, createLabel } from './gmail-api';
+import { rescueVip, getVipContacts, removeVip } from './vip-rescue';
 
 // Store latest email context from content script
 let currentEmailContext: { sender: string; subject: string } | null = null;
@@ -145,6 +146,21 @@ async function handleAsync(message: BackgroundMessage): Promise<MessageResponse>
       const apiAction = actionToApi(message.action);
       const applied = await batchModifyMessages(ids, apiAction.addLabelIds, apiAction.removeLabelIds);
       return { success: true, data: { applied } };
+    }
+
+    case 'VIP_RESCUE': {
+      const result = await rescueVip(message.email);
+      return { success: true, data: result };
+    }
+
+    case 'GET_VIP_CONTACTS': {
+      const contacts = await getVipContacts();
+      return { success: true, data: { contacts } };
+    }
+
+    case 'REMOVE_VIP': {
+      await removeVip(message.email);
+      return { success: true, data: undefined };
     }
 
     default:

@@ -3,7 +3,7 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { motion } from 'framer-motion';
 import type { GmailFilter, GmailLabel } from '@shared/types/gmail';
-import type { TemporalFilterMeta } from '@shared/types/storage';
+import type { TemporalFilterMeta, VipContact } from '@shared/types/storage';
 import { getFilterSummary, getActionSummary } from '../../lib/filter-utils';
 import { Badge } from '../common/Badge';
 import { FilterActions } from './FilterActions';
@@ -13,11 +13,12 @@ interface FilterCardProps {
   filter: GmailFilter;
   labels?: GmailLabel[];
   temporalMeta?: TemporalFilterMeta;
+  vipContacts?: VipContact[];
   onDelete: (id: string) => void;
   onEdit?: (filter: GmailFilter) => void;
 }
 
-export function FilterCard({ filter, labels, temporalMeta, onDelete, onEdit }: FilterCardProps) {
+export function FilterCard({ filter, labels, temporalMeta, vipContacts, onDelete, onEdit }: FilterCardProps) {
   const {
     attributes,
     listeners,
@@ -35,6 +36,10 @@ export function FilterCard({ filter, labels, temporalMeta, onDelete, onEdit }: F
   const expiryText = temporalMeta
     ? getExpiryText(temporalMeta.expiresAt)
     : null;
+
+  const isVipFilter = vipContacts?.some((c) =>
+    filter.criteria.from?.toLowerCase().includes(c.email.toLowerCase())
+  ) ?? false;
 
   return (
     <motion.div
@@ -75,6 +80,14 @@ export function FilterCard({ filter, labels, temporalMeta, onDelete, onEdit }: F
             {getActionSummary(filter, labels).map((action, i) => (
               <Badge key={i} variant="indigo">{action}</Badge>
             ))}
+            {isVipFilter && (
+              <Badge variant="green">
+                <svg className="w-3 h-3 mr-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                  <path strokeLinecap="round" strokeLinejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z" />
+                </svg>
+                VIP
+              </Badge>
+            )}
             {expiryText && (
               <Badge variant="amber">{expiryText}</Badge>
             )}

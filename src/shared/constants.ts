@@ -7,7 +7,11 @@ export const STORAGE_KEYS = {
   FOLDERS: 'folders',
   TEMPORAL_FILTERS: 'temporalFilters',
   FILTER_ORDER: 'filterOrder',
+  VIP_CONTACTS: 'vipContacts',
+  VIP_RESCUE_STATE: 'vipRescueState',
 } as const;
+
+export const VIP_MAX_CONTACTS = 50;
 
 export const DRY_RUN_DEBOUNCE_MS = 500;
 export const DRY_RUN_MAX_RESULTS = 5;

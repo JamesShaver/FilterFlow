@@ -129,6 +129,7 @@ export function FilterList({ onCreateFilter, onEditFilter, folderFilterIds }: Fi
               filter={filter}
               labels={state.labels}
               temporalMeta={state.temporalFilters.find((tf) => tf.filterId === filter.id)}
+              vipContacts={state.vipContacts}
               onDelete={deleteFilter}
               onEdit={onEditFilter}
             />

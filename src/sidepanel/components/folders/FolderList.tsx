@@ -41,6 +41,7 @@ export function FolderList({ filters, onDeleteFilter, onEditFilter, onCreateFold
             filters={filters}
             labels={state.labels}
             temporalFilters={state.temporalFilters}
+            vipContacts={state.vipContacts}
             onDeleteFilter={onDeleteFilter}
             onEditFilter={onEditFilter}
             onEditFolder={onEditFolder}

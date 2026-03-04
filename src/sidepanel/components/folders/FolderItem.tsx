@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDroppable } from '@dnd-kit/core';
 import { motion, AnimatePresence } from 'framer-motion';
-import type { VirtualFolder } from '@shared/types/storage';
+import type { VirtualFolder, VipContact } from '@shared/types/storage';
 import type { GmailFilter, GmailLabel } from '@shared/types/gmail';
 import { useFolders } from '../../hooks/useFolders';
 import { FilterCard } from '../filters/FilterCard';
@@ -13,12 +13,13 @@ interface FolderItemProps {
   filters: GmailFilter[];
   labels?: GmailLabel[];
   temporalFilters: Array<{ filterId: string; expiresAt: number; createdAt: number }>;
+  vipContacts?: VipContact[];
   onDeleteFilter: (id: string) => void;
   onEditFilter: (filter: GmailFilter) => void;
   onEditFolder: (folder: VirtualFolder) => void;
 }
 
-export function FolderItem({ folder, filters, labels, temporalFilters, onDeleteFilter, onEditFilter, onEditFolder }: FolderItemProps) {
+export function FolderItem({ folder, filters, labels, temporalFilters, vipContacts, onDeleteFilter, onEditFilter, onEditFolder }: FolderItemProps) {
   const { toggleFolderCollapse } = useFolders();
 
   const { setNodeRef, isOver } = useDroppable({ id: `folder-${folder.id}` });
@@ -86,6 +87,7 @@ export function FolderItem({ folder, filters, labels, temporalFilters, onDeleteF
                   filter={filter}
                   labels={labels}
                   temporalMeta={temporalFilters.find((tf) => tf.filterId === filter.id)}
+                  vipContacts={vipContacts}
                   onDelete={onDeleteFilter}
                   onEdit={onEditFilter}
                 />

@@ -14,7 +14,10 @@ export type BackgroundMessage =
   | { type: 'CREATE_LABEL'; name: string }
   | { type: 'EMAIL_CONTEXT'; sender: string; subject: string }
   | { type: 'GET_EMAIL_CONTEXT' }
-  | { type: 'APPLY_FILTER_TO_EXISTING'; query: string; action: GmailFilterAction };
+  | { type: 'APPLY_FILTER_TO_EXISTING'; query: string; action: GmailFilterAction }
+  | { type: 'VIP_RESCUE'; email: string }
+  | { type: 'GET_VIP_CONTACTS' }
+  | { type: 'REMOVE_VIP'; email: string };
 
 // Response types
 export type MessageResponse<T = unknown> =

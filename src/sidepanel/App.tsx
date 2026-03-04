@@ -34,6 +34,8 @@ import { DuplicateReviewDialog } from './components/filters/DuplicateReviewDialo
 import { useFilterAnalysis } from './hooks/useFilterAnalysis';
 import type { ConsolidationGroup, DuplicateGroup } from './lib/filter-analysis';
 import type { ConsolidateResult } from './components/filters/ConsolidateDialog';
+import { useVipRescue } from './hooks/useVipRescue';
+import { VipSection } from './components/vip/VipSection';
 import type { GmailFilter, GmailFilterCriteria } from '@shared/types/gmail';
 import type { VirtualFolder } from '@shared/types/storage';
 
@@ -41,6 +43,7 @@ function AppContent() {
   const { isAuthenticated } = useAuth();
   const { filters, filterOrder, fetchFilters, fetchLabels, deleteFilter, createFilter, updateFilterOrder, isLoading } = useFilters();
   const { addFilterToFolder, removeFilterFromAllFolders } = useFolders();
+  const { fetchVipContacts } = useVipRescue();
   const { state, dispatch } = useAppContext();
   const { consolidationGroups, duplicateGroups, hasAnySuggestions } = useFilterAnalysis(filters, state.labels);
 
@@ -115,8 +118,9 @@ function AppContent() {
     if (isAuthenticated) {
       fetchFilters();
       fetchLabels();
+      fetchVipContacts();
     }
-  }, [isAuthenticated, fetchFilters, fetchLabels]);
+  }, [isAuthenticated, fetchFilters, fetchLabels, fetchVipContacts]);
 
   const handleCreateFilter = (criteria?: { from?: string; subject?: string }) => {
     setEditingFilter(null);
@@ -265,6 +269,9 @@ function AppContent() {
               </Button>
             </div>
           )}
+
+          {/* VIP Section */}
+          <VipSection />
 
           {/* Filter Analysis Suggestions */}
           {hasAnySuggestions && !showFilterForm && (

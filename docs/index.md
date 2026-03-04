@@ -35,6 +35,9 @@ FilterFlow analyzes your filters and suggests opportunities to merge similar one
 ### Search Filters
 Quickly find any filter by typing in the search bar. FilterFlow searches across all your filter criteria and actions to surface exactly what you're looking for.
 
+### VIP "Rescue" & Protection
+Have aggressive filters that accidentally bury important emails? Designate a sender as VIP to instantly rescue their messages. When you're reading an email in Gmail, a "Rescue & Protect" button appears in the Side Panel. One click will create a protective filter ensuring their emails never go to spam, move any archived or trashed messages back to your inbox, and automatically adjust existing filters that would hide this sender's emails. You can manage up to 50 VIP contacts from the dedicated VIP section.
+
 ---
 
 ## Installation

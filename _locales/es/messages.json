@@ -730,5 +730,78 @@
   "searchFilters": {
     "message": "Buscar filtros...",
     "description": "Marcador de posición del campo de búsqueda en el encabezado"
+  },
+
+  "vipSection": {
+    "message": "Contactos VIP",
+    "description": "Encabezado de la sección VIP"
+  },
+  "vipContacts": {
+    "message": "Aún no hay contactos VIP",
+    "description": "Mensaje de lista VIP vacía"
+  },
+  "addVip": {
+    "message": "Agregar VIP",
+    "description": "Botón Agregar VIP"
+  },
+  "removeVip": {
+    "message": "Eliminar VIP",
+    "description": "Título del botón Eliminar VIP"
+  },
+  "rescueAndProtect": {
+    "message": "Rescatar y proteger",
+    "description": "Botón de rescate VIP en el creador contextual"
+  },
+  "vipRescueDesc": {
+    "message": "$COUNT$ mensajes rescatados el $DATE$",
+    "description": "Estadísticas de rescate del contacto VIP",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "date": {
+        "content": "$2",
+        "example": "4/3/2026"
+      }
+    }
+  },
+  "toastVipRescued": {
+    "message": "VIP rescatado: $EMAIL$ — $COUNT$ mensajes recuperados, $FILTERS$ filtros ajustados",
+    "description": "Notificación después de un rescate VIP exitoso",
+    "placeholders": {
+      "email": {
+        "content": "$1",
+        "example": "user@example.com"
+      },
+      "count": {
+        "content": "$2",
+        "example": "5"
+      },
+      "filters": {
+        "content": "$3",
+        "example": "2"
+      }
+    }
+  },
+  "toastVipRemoved": {
+    "message": "Protección VIP eliminada",
+    "description": "Notificación después de eliminar VIP"
+  },
+  "toastVipCapReached": {
+    "message": "Límite de contactos VIP alcanzado (50)",
+    "description": "Notificación cuando se alcanza el límite VIP"
+  },
+  "toastVipAlreadyProtected": {
+    "message": "Este remitente ya es VIP",
+    "description": "Notificación cuando el remitente ya es VIP"
+  },
+  "vipProtectionMissing": {
+    "message": "Filtro de protección faltante",
+    "description": "Advertencia cuando no se encuentra el filtro protector VIP"
+  },
+  "vipImportSuggestion": {
+    "message": "Se encontraron filtros anti-spam que podrían importarse como contactos VIP",
+    "description": "Notificación sugiriendo importar VIP desde filtros neverSpam existentes"
   }
 }

@@ -730,5 +730,78 @@
   "searchFilters": {
     "message": "Search filters...",
     "description": "Search input placeholder in header"
+  },
+
+  "vipSection": {
+    "message": "VIP Contacts",
+    "description": "VIP section heading"
+  },
+  "vipContacts": {
+    "message": "No VIP contacts yet",
+    "description": "Empty VIP list message"
+  },
+  "addVip": {
+    "message": "Add VIP",
+    "description": "Add VIP button"
+  },
+  "removeVip": {
+    "message": "Remove VIP",
+    "description": "Remove VIP button title"
+  },
+  "rescueAndProtect": {
+    "message": "Rescue & Protect",
+    "description": "VIP rescue button in contextual creator"
+  },
+  "vipRescueDesc": {
+    "message": "$COUNT$ messages rescued on $DATE$",
+    "description": "VIP contact rescue stats",
+    "placeholders": {
+      "count": {
+        "content": "$1",
+        "example": "12"
+      },
+      "date": {
+        "content": "$2",
+        "example": "3/4/2026"
+      }
+    }
+  },
+  "toastVipRescued": {
+    "message": "VIP rescued: $EMAIL$ — $COUNT$ messages recovered, $FILTERS$ filters adjusted",
+    "description": "Toast after successful VIP rescue",
+    "placeholders": {
+      "email": {
+        "content": "$1",
+        "example": "user@example.com"
+      },
+      "count": {
+        "content": "$2",
+        "example": "5"
+      },
+      "filters": {
+        "content": "$3",
+        "example": "2"
+      }
+    }
+  },
+  "toastVipRemoved": {
+    "message": "VIP protection removed",
+    "description": "Toast after removing VIP"
+  },
+  "toastVipCapReached": {
+    "message": "VIP contact limit reached (50)",
+    "description": "Toast when VIP cap is hit"
+  },
+  "toastVipAlreadyProtected": {
+    "message": "This sender is already a VIP",
+    "description": "Toast when sender is already VIP"
+  },
+  "vipProtectionMissing": {
+    "message": "Protection filter missing",
+    "description": "Warning when VIP protective filter is not found"
+  },
+  "vipImportSuggestion": {
+    "message": "Found never-spam filters that could be imported as VIP contacts",
+    "description": "Toast suggesting VIP import from existing neverSpam filters"
   }
 }
