@@ -17,7 +17,6 @@
     "client_id": "59717546581-2k63hjsm3pjvci32c7pqtdaj9a7vhhjg.apps.googleusercontent.com",
     "scopes": [
       "https://www.googleapis.com/auth/gmail.settings.basic",
-      "https://www.googleapis.com/auth/gmail.readonly",
       "https://www.googleapis.com/auth/gmail.labels",
       "https://www.googleapis.com/auth/gmail.modify"
     ]
