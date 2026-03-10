@@ -17,7 +17,9 @@ export type BackgroundMessage =
   | { type: 'APPLY_FILTER_TO_EXISTING'; query: string; action: GmailFilterAction }
   | { type: 'VIP_RESCUE'; email: string }
   | { type: 'GET_VIP_CONTACTS' }
-  | { type: 'REMOVE_VIP'; email: string };
+  | { type: 'REMOVE_VIP'; email: string }
+  | { type: 'GET_LABEL_DETAILS'; labelIds: string[] }
+  | { type: 'DELETE_LABELS'; labelIds: string[] };
 
 // Response types
 export type MessageResponse<T = unknown> =

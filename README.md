@@ -22,6 +22,7 @@ Set a filter to automatically delete itself after a configurable period (1 day t
 ### Smart Filter Analysis
 - **Consolidation suggestions** — detects filters with identical actions that can be merged
 - **Duplicate detection** — finds and lets you review redundant filters
+- **Ghost label cleanup** — scans for labels with no messages and no filter references, then offers guided bulk deletion with a two-step confirmation and real-time progress
 
 ### Filter Search
 Quickly find any filter by typing in the search bar. Searches across all criteria and actions to surface matching filters instantly.

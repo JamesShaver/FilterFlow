@@ -32,6 +32,8 @@ export interface GmailLabel {
   id: string;
   name: string;
   type: 'system' | 'user';
+  messagesTotal?: number;
+  threadsTotal?: number;
 }
 
 export interface GmailMessageHeader {

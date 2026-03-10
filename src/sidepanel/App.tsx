@@ -35,7 +35,10 @@ import { useFilterAnalysis } from './hooks/useFilterAnalysis';
 import type { ConsolidationGroup, DuplicateGroup } from './lib/filter-analysis';
 import type { ConsolidateResult } from './components/filters/ConsolidateDialog';
 import { useVipRescue } from './hooks/useVipRescue';
+import { useGhostLabels } from './hooks/useGhostLabels';
 import { VipSection } from './components/vip/VipSection';
+import { GhostLabelBar } from './components/labels/GhostLabelBar';
+import { GhostLabelDialog } from './components/labels/GhostLabelDialog';
 import type { GmailFilter, GmailFilterCriteria } from '@shared/types/gmail';
 import type { VirtualFolder } from '@shared/types/storage';
 
@@ -46,6 +49,7 @@ function AppContent() {
   const { fetchVipContacts } = useVipRescue();
   const { state, dispatch } = useAppContext();
   const { consolidationGroups, duplicateGroups, hasAnySuggestions } = useFilterAnalysis(filters, state.labels);
+  const { ghostLabels, isScanning, isDeleting, deleteProgress, deleteGhostLabels, dismissGhostLabels } = useGhostLabels();
 
   const [showFilterForm, setShowFilterForm] = useState(false);
   const [showFolderDialog, setShowFolderDialog] = useState(false);
@@ -56,6 +60,7 @@ function AppContent() {
   const [activeFilter, setActiveFilter] = useState<GmailFilter | null>(null);
   const [consolidateGroup, setConsolidateGroup] = useState<ConsolidationGroup | null>(null);
   const [duplicateGroup, setDuplicateGroup] = useState<DuplicateGroup | null>(null);
+  const [showGhostDialog, setShowGhostDialog] = useState(false);
 
   const sensors = useSensors(
     useSensor(PointerSensor, { activationConstraint: { distance: 5 } }),
@@ -283,6 +288,16 @@ function AppContent() {
             />
           )}
 
+          {/* Ghost Label Cleanup */}
+          {(isScanning || ghostLabels.length > 0) && !showFilterForm && (
+            <GhostLabelBar
+              ghostLabels={ghostLabels}
+              isScanning={isScanning}
+              onReviewCleanup={() => setShowGhostDialog(true)}
+              onDismiss={dismissGhostLabels}
+            />
+          )}
+
           {/* DndContext wraps both folders and filter lists so cross-drops work */}
           <DndContext sensors={sensors} collisionDetection={closestCorners} onDragStart={handleDragStart} onDragEnd={handleDragEnd}>
             {/* Folders */}
@@ -367,6 +382,18 @@ function AppContent() {
           labels={state.labels}
           onConfirm={handleDeleteDuplicates}
           onClose={() => setDuplicateGroup(null)}
+        />
+      )}
+
+      {/* Ghost Label Cleanup Dialog */}
+      {showGhostDialog && (
+        <GhostLabelDialog
+          open={showGhostDialog}
+          ghostLabels={ghostLabels}
+          isDeleting={isDeleting}
+          deleteProgress={deleteProgress}
+          onConfirm={deleteGhostLabels}
+          onClose={() => setShowGhostDialog(false)}
         />
       )}
 

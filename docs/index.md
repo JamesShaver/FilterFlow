@@ -32,6 +32,9 @@ Need a temporary filter? Set it to expire automatically after 1 day, 3 days, 1 w
 ### Smart Consolidation & Duplicate Detection
 FilterFlow analyzes your filters and suggests opportunities to merge similar ones or remove duplicates. Clean up years of accumulated filter clutter in just a few clicks.
 
+### Ghost Label Cleanup
+FilterFlow automatically scans for "ghost labels" — labels that have no messages and aren't used by any filters. A notification bar flags them after your filters load, and a guided cleanup dialog lets you review and delete them in bulk. A two-step confirmation (with an extra warning for 10 or more labels) keeps you in control, and a progress bar tracks the deletion in real time.
+
 ### Search Filters
 Quickly find any filter by typing in the search bar. FilterFlow searches across all your filter criteria and actions to surface exactly what you're looking for.
 

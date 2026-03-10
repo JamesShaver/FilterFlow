@@ -15,3 +15,6 @@ export const VIP_MAX_CONTACTS = 50;
 
 export const DRY_RUN_DEBOUNCE_MS = 500;
 export const DRY_RUN_MAX_RESULTS = 5;
+
+export const GHOST_LABEL_SCAN_DELAY_MS = 5000;
+export const GMAIL_BATCH_LIMIT = 100;

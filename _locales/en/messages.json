@@ -803,5 +803,107 @@
   "vipImportSuggestion": {
     "message": "Found never-spam filters that could be imported as VIP contacts",
     "description": "Toast suggesting VIP import from existing neverSpam filters"
+  },
+
+  "ghostScanning": {
+    "message": "Scanning for ghost labels...",
+    "description": "Shown while scanning labels for orphaned ones"
+  },
+  "ghostLabelsFound": {
+    "message": "$1 ghost label$2 found",
+    "description": "Ghost label count in notification bar",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "ghostLabelsDescription": {
+    "message": "These labels have no messages and are not used by any filters.",
+    "description": "Description of what ghost labels are"
+  },
+  "ghostReviewCleanup": {
+    "message": "Review & Clean Up",
+    "description": "Button to open ghost label cleanup dialog"
+  },
+  "ghostLabelsTitle": {
+    "message": "Ghost Labels",
+    "description": "Title for ghost label cleanup dialog"
+  },
+  "ghostLabelsReviewDescription": {
+    "message": "These labels have zero messages and are not referenced by any filter. Select which labels to delete.",
+    "description": "Description in the review step of ghost label dialog"
+  },
+  "ghostZeroMessages": {
+    "message": "0 messages",
+    "description": "Badge text for labels with no messages"
+  },
+  "ghostBulkWarning": {
+    "message": "You are about to delete $1 labels. This is a bulk operation and cannot be reversed. Please review carefully.",
+    "description": "Warning shown when deleting 10+ ghost labels",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "ghostConfirmDescription": {
+    "message": "Delete $1 selected label(s)? This action cannot be undone.",
+    "description": "Confirmation text before deleting ghost labels",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "ghostDeleteProgress": {
+    "message": "Deleted $1 of $2...",
+    "description": "Progress text during ghost label deletion",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "ghostDeleteCount": {
+    "message": "Delete $1 label$2",
+    "description": "Delete button text with count",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "toastGhostScanFailed": {
+    "message": "Failed to scan for ghost labels",
+    "description": "Toast when ghost label scan fails"
+  },
+  "toastGhostDeleted": {
+    "message": "Deleted $1 ghost label(s)",
+    "description": "Toast after successful ghost label deletion",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "toastGhostDeletePartial": {
+    "message": "Deleted $1 label(s), $2 failed",
+    "description": "Toast when some ghost label deletions failed",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "toastGhostDeleteFailed": {
+    "message": "Failed to delete ghost labels",
+    "description": "Toast when ghost label deletion fails entirely"
+  },
+  "selectAll": {
+    "message": "Select all",
+    "description": "Select all checkbox label"
+  },
+  "continue": {
+    "message": "Continue",
+    "description": "Continue button label"
+  },
+  "back": {
+    "message": "Back",
+    "description": "Back button label"
+  },
+  "dismiss": {
+    "message": "Dismiss",
+    "description": "Dismiss button label"
   }
 }

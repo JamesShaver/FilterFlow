@@ -803,5 +803,107 @@
   "vipImportSuggestion": {
     "message": "Se encontraron filtros anti-spam que podrían importarse como contactos VIP",
     "description": "Notificación sugiriendo importar VIP desde filtros neverSpam existentes"
+  },
+
+  "ghostScanning": {
+    "message": "Buscando etiquetas fantasma...",
+    "description": "Mostrado mientras se buscan etiquetas huérfanas"
+  },
+  "ghostLabelsFound": {
+    "message": "$1 etiqueta$2 fantasma encontrada$2",
+    "description": "Recuento de etiquetas fantasma en la barra de notificación",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "ghostLabelsDescription": {
+    "message": "Estas etiquetas no tienen mensajes y no son usadas por ningún filtro.",
+    "description": "Descripción de qué son las etiquetas fantasma"
+  },
+  "ghostReviewCleanup": {
+    "message": "Revisar y limpiar",
+    "description": "Botón para abrir el diálogo de limpieza de etiquetas fantasma"
+  },
+  "ghostLabelsTitle": {
+    "message": "Etiquetas fantasma",
+    "description": "Título del diálogo de limpieza de etiquetas fantasma"
+  },
+  "ghostLabelsReviewDescription": {
+    "message": "Estas etiquetas tienen cero mensajes y no son referenciadas por ningún filtro. Selecciona cuáles eliminar.",
+    "description": "Descripción en el paso de revisión del diálogo de etiquetas fantasma"
+  },
+  "ghostZeroMessages": {
+    "message": "0 mensajes",
+    "description": "Texto del badge para etiquetas sin mensajes"
+  },
+  "ghostBulkWarning": {
+    "message": "Estás a punto de eliminar $1 etiquetas. Esta es una operación masiva e irreversible. Revisa cuidadosamente.",
+    "description": "Advertencia al eliminar 10+ etiquetas fantasma",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "ghostConfirmDescription": {
+    "message": "¿Eliminar $1 etiqueta(s) seleccionada(s)? Esta acción no se puede deshacer.",
+    "description": "Texto de confirmación antes de eliminar etiquetas fantasma",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "ghostDeleteProgress": {
+    "message": "Eliminadas $1 de $2...",
+    "description": "Texto de progreso durante la eliminación de etiquetas fantasma",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "ghostDeleteCount": {
+    "message": "Eliminar $1 etiqueta$2",
+    "description": "Texto del botón eliminar con recuento",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "toastGhostScanFailed": {
+    "message": "Error al buscar etiquetas fantasma",
+    "description": "Notificación cuando falla la búsqueda de etiquetas fantasma"
+  },
+  "toastGhostDeleted": {
+    "message": "$1 etiqueta(s) fantasma eliminada(s)",
+    "description": "Notificación tras eliminación exitosa de etiquetas fantasma",
+    "placeholders": {
+      "1": { "content": "$1" }
+    }
+  },
+  "toastGhostDeletePartial": {
+    "message": "$1 etiqueta(s) eliminada(s), $2 fallaron",
+    "description": "Notificación cuando algunas eliminaciones de etiquetas fantasma fallaron",
+    "placeholders": {
+      "1": { "content": "$1" },
+      "2": { "content": "$2" }
+    }
+  },
+  "toastGhostDeleteFailed": {
+    "message": "Error al eliminar etiquetas fantasma",
+    "description": "Notificación cuando falla la eliminación de etiquetas fantasma"
+  },
+  "selectAll": {
+    "message": "Seleccionar todo",
+    "description": "Etiqueta del checkbox seleccionar todo"
+  },
+  "continue": {
+    "message": "Continuar",
+    "description": "Etiqueta del botón continuar"
+  },
+  "back": {
+    "message": "Atrás",
+    "description": "Etiqueta del botón atrás"
+  },
+  "dismiss": {
+    "message": "Descartar",
+    "description": "Etiqueta del botón descartar"
   }
 }

@@ -1,10 +1,13 @@
 import type { BackgroundMessage, MessageResponse } from '@shared/types/messages';
 import { getAuthToken, signOut } from './auth';
-import { listFilters, createFilter, deleteFilter, searchMessages, searchMessageIds, batchModifyMessages, actionToApi, listLabels, createLabel } from './gmail-api';
+import { listFilters, createFilter, deleteFilter, searchMessages, searchMessageIds, batchModifyMessages, actionToApi, listLabels, createLabel, batchGetLabelDetails, deleteLabel } from './gmail-api';
 import { rescueVip, getVipContacts, removeVip } from './vip-rescue';
 
 // Store latest email context from content script
 let currentEmailContext: { sender: string; subject: string } | null = null;
+
+// Pending deletion cache — tracks labels being deleted across rate-limit retries
+const pendingDeletions = new Map<string, 'pending' | 'done' | 'failed'>();
 
 export function getCurrentEmailContext() {
   return currentEmailContext;
@@ -161,6 +164,54 @@ async function handleAsync(message: BackgroundMessage): Promise<MessageResponse>
     case 'REMOVE_VIP': {
       await removeVip(message.email);
       return { success: true, data: undefined };
+    }
+
+    case 'GET_LABEL_DETAILS': {
+      const labels = await batchGetLabelDetails(message.labelIds);
+      return { success: true, data: { labels } };
+    }
+
+    case 'DELETE_LABELS': {
+      const deleted: string[] = [];
+      const failed: string[] = [];
+
+      // Mark all as pending in cache
+      for (const id of message.labelIds) {
+        pendingDeletions.set(id, 'pending');
+      }
+
+      for (let i = 0; i < message.labelIds.length; i++) {
+        const id = message.labelIds[i];
+        try {
+          const success = await deleteLabel(id);
+          if (success) {
+            deleted.push(id);
+            pendingDeletions.set(id, 'done');
+          } else {
+            // 404 — already gone, treat as success
+            deleted.push(id);
+            pendingDeletions.set(id, 'done');
+          }
+        } catch {
+          failed.push(id);
+          pendingDeletions.set(id, 'failed');
+        }
+
+        // Broadcast progress
+        chrome.runtime.sendMessage({
+          type: 'GHOST_DELETE_PROGRESS',
+          completed: deleted.length + failed.length,
+          total: message.labelIds.length,
+          deleted: deleted.length,
+          failed: failed.length,
+        }).catch(() => {});
+      }
+
+      // Clear completed entries from cache
+      for (const id of deleted) pendingDeletions.delete(id);
+      for (const id of failed) pendingDeletions.delete(id);
+
+      return { success: true, data: { deleted, failed } };
     }
 
     default:

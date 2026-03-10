@@ -1,4 +1,4 @@
-import { GMAIL_API_BASE, DRY_RUN_MAX_RESULTS } from '@shared/constants';
+import { GMAIL_API_BASE, DRY_RUN_MAX_RESULTS, GMAIL_BATCH_LIMIT } from '@shared/constants';
 import type { GmailFilter, GmailFilterCriteria, GmailFilterAction, GmailMessage, GmailLabel } from '@shared/types/gmail';
 import { getAuthTokenWithRetry } from './auth';
 
@@ -198,4 +198,112 @@ export async function batchModifyMessages(
   }
 
   return messageIds.length;
+}
+
+/**
+ * Fetch full details (including messagesTotal) for multiple labels using
+ * the Gmail batch API. Sends up to 100 sub-requests per HTTP call.
+ */
+export async function batchGetLabelDetails(labelIds: string[]): Promise<GmailLabel[]> {
+  if (labelIds.length === 0) return [];
+
+  const results: GmailLabel[] = [];
+
+  for (let i = 0; i < labelIds.length; i += GMAIL_BATCH_LIMIT) {
+    const batch = labelIds.slice(i, i + GMAIL_BATCH_LIMIT);
+    const batchResults = await executeBatchLabelGet(batch);
+    results.push(...batchResults);
+  }
+
+  return results;
+}
+
+async function executeBatchLabelGet(labelIds: string[]): Promise<GmailLabel[]> {
+  const token = await getAuthTokenWithRetry();
+  const boundary = `batch_filterflow_${Date.now()}`;
+
+  const body = labelIds.map((id, idx) =>
+    `--${boundary}\r\nContent-Type: application/http\r\nContent-ID: <item${idx}>\r\n\r\nGET /gmail/v1/users/me/labels/${encodeURIComponent(id)}\r\n`
+  ).join('');
+
+  const fullBody = `${body}--${boundary}--`;
+
+  const response = await fetch('https://www.googleapis.com/batch/gmail/v1', {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': `multipart/mixed; boundary=${boundary}`,
+    },
+    body: fullBody,
+  });
+
+  if (response.status === 429) {
+    const retryAfter = parseInt(response.headers.get('Retry-After') || '5', 10);
+    await delay(retryAfter * 1000);
+    return executeBatchLabelGet(labelIds);
+  }
+
+  if (!response.ok) {
+    throw new Error(chrome.i18n.getMessage('errorGmailApi', [String(response.status)]));
+  }
+
+  const text = await response.text();
+  return parseBatchResponse(text);
+}
+
+function parseBatchResponse(responseText: string): GmailLabel[] {
+  const labels: GmailLabel[] = [];
+
+  // Split by boundary — each part has HTTP status line + headers + JSON body
+  const parts = responseText.split(/--batch_\S+/);
+  for (const part of parts) {
+    const jsonMatch = part.match(/\{[\s\S]*\}/);
+    if (!jsonMatch) continue;
+
+    try {
+      const data = JSON.parse(jsonMatch[0]);
+      // Skip error responses (e.g., label not found)
+      if (data.id && data.name) {
+        labels.push({
+          id: data.id,
+          name: data.name,
+          type: data.type?.toLowerCase() === 'system' ? 'system' : 'user',
+          messagesTotal: data.messagesTotal ?? 0,
+          threadsTotal: data.threadsTotal ?? 0,
+        });
+      }
+    } catch {
+      // Skip unparseable parts
+    }
+  }
+
+  return labels;
+}
+
+/**
+ * Delete a single label. Returns true on success, false on 404 (already gone).
+ * Throws on other errors. Retries on 429.
+ */
+export async function deleteLabel(labelId: string): Promise<boolean> {
+  const token = await getAuthTokenWithRetry();
+  const response = await fetch(`${GMAIL_API_BASE}/labels/${encodeURIComponent(labelId)}`, {
+    method: 'DELETE',
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+  if (response.status === 204 || response.ok) return true;
+  if (response.status === 404) return false;
+
+  if (response.status === 429) {
+    const retryAfter = parseInt(response.headers.get('Retry-After') || '5', 10);
+    await delay(retryAfter * 1000);
+    return deleteLabel(labelId);
+  }
+
+  const error = await response.json().catch(() => ({ error: { message: response.statusText } }));
+  throw new Error(error.error?.message || chrome.i18n.getMessage('errorGmailApi', [String(response.status)]));
+}
+
+function delay(ms: number): Promise<void> {
+  return new Promise((resolve) => setTimeout(resolve, ms));
 }
