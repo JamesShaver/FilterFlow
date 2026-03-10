@@ -7,7 +7,7 @@ title: Privacy Policy — FilterFlow
 
 # Privacy Policy
 
-**Last updated:** February 23, 2026
+**Last updated:** March 10, 2026
 
 FilterFlow is a Chrome extension that replaces Gmail's built-in filter settings with a drag-and-drop side panel interface. This privacy policy explains what data FilterFlow accesses, how it is used, and how it is protected.
 
@@ -101,6 +101,20 @@ FilterFlow communicates exclusively with Google's services:
 - **Gmail API** (`www.googleapis.com/gmail/v1/`) — for filter, label, and message metadata operations.
 
 No other external services, APIs, servers, or endpoints are contacted. FilterFlow has no backend server. All processing occurs locally in your browser.
+
+---
+
+## Data Protection
+
+FilterFlow employs the following mechanisms to protect sensitive data:
+
+- **Encryption in transit** — All communication with Google services (OAuth endpoints and the Gmail API) is conducted exclusively over HTTPS/TLS. No unencrypted HTTP requests are made.
+- **Encryption at rest** — Local configuration data stored in `chrome.storage.sync` is encrypted by Chrome using your operating system's credential store. FilterFlow does not implement its own storage encryption because Chrome's built-in encryption already protects this data.
+- **Minimal token exposure** — OAuth access tokens are managed entirely by Chrome's `chrome.identity` API and are never written to disk, logged to the console, or stored in extension storage by FilterFlow. Tokens exist only in memory for the duration of an API call.
+- **Token revocation** — When you sign out, FilterFlow actively revokes the OAuth token with Google's revocation endpoint and removes it from Chrome's identity cache, ensuring it cannot be reused.
+- **Least-privilege scopes** — FilterFlow requests only the minimum Gmail API scopes required for its features. It does not request full mailbox access or any scope that would allow reading email body content.
+- **No external transmission** — Sensitive data (tokens, filter criteria, email metadata) is never sent to any server other than Google's official API endpoints. FilterFlow has no backend server, analytics service, or third-party SDK that receives user data.
+- **Memory-only processing** — Email metadata retrieved for the dry-run preview and email context detection is held in memory only and is never persisted to disk.
 
 ---
 
