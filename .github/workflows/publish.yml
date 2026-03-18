@@ -1,0 +1,46 @@
+name: Publish to Web Store
+permissions:
+  contents: read
+on:
+  push:
+    tags:
+      - 'v*' # Triggers only when you push a version tag (e.g., v1.0.1)
+  workflow_dispatch: # This line enables the manual button in the Actions tab to trigger the workflow
+
+jobs:
+  upload:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20' # Use the version you develop with
+          cache: 'npm'
+
+      - name: Install and Build
+        run: |
+          npm ci
+          npm run build
+
+      - name: Zip Build Output
+        run: |
+          cd dist
+          zip -r ../release.zip .
+          
+      - name: Verify Zip Structure
+        run: |
+          echo "Checking zip structure..."
+          unzip -l release.zip | head -n 10
+
+      - name: Upload & Publish
+        uses: mnao305/chrome-extension-upload@v5.0.0
+        with:
+          file-path: release.zip
+          extension-id: ${{ secrets.EXTENSION_ID }}
+          client-id: ${{ secrets.CLIENT_ID }}
+          client-secret: ${{ secrets.CLIENT_SECRET }}
+          refresh-token: ${{ secrets.REFRESH_TOKEN }}
+          publish: false
