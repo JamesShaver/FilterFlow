@@ -4,4 +4,4 @@ plugins:
 
 title: FilterFlow
 description: A powerful Chrome extension that replaces Gmail's filter settings with an intuitive drag-and-drop Side Panel interface.
-baseurl: "/FilterFlow"
+baseurl: ""
