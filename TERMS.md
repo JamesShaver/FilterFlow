@@ -1,6 +1,6 @@
 # **Terms of Service for FilterFlow**
 
-**Effective Date:** February 25, 2026
+**Effective Date:** March 21, 2026
 
 Welcome to FilterFlow\! These Terms of Service ("Terms") govern your use of the FilterFlow Chrome Extension ("the Software"). By installing or using FilterFlow, you agree to be bound by these Terms. If you do not agree, please do not use the Software.
 
@@ -51,5 +51,5 @@ FilterFlow interacts directly with Google LLC's Gmail service. FilterFlow is not
 
 If you have any questions about these Terms, or need to report a bug, please contact us at:
 
-* **Support / GitHub:** https://github.com/JamesShaver/FilterFlow/issues/new?template=bug\_report.md  
+* **Support / GitHub:** https://github.com/JamesShaver/FilterFlow/issues/new?template=bug_report.md  
 * **Email:** contact@jshaver.me
